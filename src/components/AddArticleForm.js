@@ -13,22 +13,23 @@ class AddArticleForm extends Component {
     }
     render() {
         const { topics } = this.state;
-        console.log(this.state)
+        const { topic } = this.props
+
 
         return (
             <div>
                 <form onSubmit={this.handleSubmit}>
-                    <select name="topic" id="topic" required onChange={this.handleChange}>
+                    {this.props.topic ? null : <select name="topic" id="topic" required onChange={this.handleChange}>
                         <option value="" defaultValue>Please select the topic</option>
                         {topics.map(topic => {
                             return (
                                 <option key={topic.slug} value={topic.slug}>{topic.slug}</option>
                             )
                         })}
-                    </select>
+                    </select>}
                     <input onChange={this.handleChange} type="text" id="title" required />
                     <input type="text" id="body" required onChange={this.handleChange} />
-                    <button type="submit" />
+                    <button type="submit">POST</button>
                 </form>
             </div>
         );
@@ -51,7 +52,21 @@ class AddArticleForm extends Component {
 
     handleSubmit = (event) => {
         event.preventDefault()
-        // console.log(articleObject)
+        const { title, body } = this.state;;
+        let { topic } = this.state
+        const { user: { username } } = this.props;
+        if (this.props.topic) topic = this.props.topic;
+
+        api.addArticle(topic, {
+            title,
+            body,
+            username
+        }).then(({ res }) => {
+            console.log(res, 'r')
+        }).catch((err) => {
+            console.log(err, 'e');
+        });
+
 
     }
 }

@@ -14,8 +14,10 @@ export const fetchSingleArticle = async (article_id) => {
   return article;
 };
 
-export const addArticle = async (articleObj) => {
-  const { data } = await axios.post(`${BASE_URL}/api/articles`);
+export const addArticle = async (topic, articleObj) => {
+  console.log(articleObj, topic);
+  const { data } = await axios.post(`${BASE_URL}/api/topics/${topic}/articles`);
+  console.log(data);
   return data;
 };
 

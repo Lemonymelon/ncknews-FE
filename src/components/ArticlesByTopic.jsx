@@ -1,38 +1,46 @@
 import React, { Component } from 'react';
 import { Link } from "@reach/router";
+import AddArticleForm from './AddArticleForm'
+
 import * as api from '../api'
 
 class ArticlesByTopic extends Component {
     state = {
-        articles: []
+        articles: [],
+        showAddForm: true
     }
 
     render() {
-        
-        const {articles} = this.state;
+        const { user, topic } = this.props
+        const { articles, showAddForm } = this.state;
+        console.log(topic)
+
         return <div>
-                
-                {articles.map(article => {
-                   return (
-                   <div key={article.article_id}>
-            <Link to={`/articles/${article.article_id}`} ><span>{article.title} || votes: {article.votes} || comments: {article.comment_count}</span></Link>
-                    <br/>
+            <button id="addArticleButton" onClick={this.showForm}>Add Article to {topic}</button>
+            {showAddForm && <AddArticleForm user={user} topic={topic} />}
+            <br />
+            {articles.map(article => {
+                return (
+                    <div key={article.article_id}>
+                        <Link to={`/articles/${article.article_id}`} ><span>{article.title} || votes: {article.votes} || comments: {article.comment_count}</span></Link>
+                        <br />
                     </div>
-                   )
-                })}
-                
-            </div>
-        
+                )
+            })}
+
+        </div>
+
     }
 
     componentDidMount() {
-        const {topic} = this.props;
+        const { topic } = this.props;
         api.fetchArticlesByTopic(topic).then((articles) => {
 
-          this.setState({ articles,
-           })
+            this.setState({
+                articles,
+            })
         })
-      }
+    }
 }
 
 export default ArticlesByTopic;

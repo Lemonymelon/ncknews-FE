@@ -8,21 +8,22 @@ import * as api from '../api'
 class Articles extends Component {
   state = {
     articles: [],
-    showAddForm: false
-    
+    showAddForm: true
+
   };
   render() {
-    const {articles, showAddForm} = this.state;
+    const { user } = this.props
+    const { articles, showAddForm } = this.state;
     return <div className="">
       <p>Articles</p>
       <button id="addArticleButton" onClick={this.showForm}>Add Article</button>
-    {showAddForm && <AddArticleForm/>}
-<br/>
+      {showAddForm && <AddArticleForm user={user} />}
+      <br />
       {articles.map(article => {
         return (
           <div key={article.article_id}>
             <Link to={`/articles/${article.article_id}`} ><span>{article.title} || votes: {article.votes} || comments: {article.comment_count}</span></Link>
-            <br/>
+            <br />
           </div>
         )
       })}
@@ -31,15 +32,16 @@ class Articles extends Component {
 
   componentDidMount() {
     api.fetchArticles().then((articles) => {
-      this.setState({ articles,
-       })
+      this.setState({
+        articles,
+      })
     })
   }
 
   showForm = (event) => {
-this.setState({
-  showAddForm: true
-})
+    this.setState({
+      showAddForm: true
+    })
   }
 
 

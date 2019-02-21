@@ -32,7 +32,7 @@ class App extends Component {
           <Articles user={user} path="/articles" />
           <SingleArticle path="/articles/:article_id" />
           <Topics path="/topics" />
-          <ArticlesByTopic path="/topics/:topic/articles" />
+          <ArticlesByTopic user={user} path="/topics/:topic/articles" />
         </Router>
         <SideBarTab />
         <Footer />
