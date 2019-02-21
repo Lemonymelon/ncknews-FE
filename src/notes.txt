@@ -1,0 +1,287 @@
+INTRO
+
+learn what navigate does
+
+grid-template-areas {
+'header header'
+'nav nav'
+'articles sidebar'
+'footer footer'
+}
+
+.header {
+    grid-area: header;
+}
+
+---
+
+componentDidMount () {
+    this.fetchTopics()
+}
+
+fetchTopics = () => {
+    // make api request (or put in api file and require in)
+}
+
+---
+
+const getTopics = async () => {
+    //try {}
+    //catch (err) {}
+    const {data} = await axios.get('url');
+    return data;
+}
+
+//use promises in components, async await in api requests if singular
+
+---
+
+nav.css:
+
+.links{
+    display: flex;
+    align-content: space-between;
+    justify-content: center;
+}
+
+<Router className="main">
+    <Articles path="/" />
+    <Articles path="/topics/:topic" />
+
+</Router>
+
+---
+
+componentDidUpdate(prevProps, prevState) {
+    if (prevProps.topic !== this.props.topic) {
+        this.fetchArticles;
+    }
+}
+
+-----
+
+auth:
+ const request = axios.create({
+     baseIRL: 'url'
+ })
+
+ export const getTopics = async () => {
+     const {data} = await request.get('/topics', {
+        CONST path = TOPIC ? `topics/${topic}/articles` : '/articles'
+     })
+      } ???
+
+
+const fetchUser = async (username) => {
+    const {data} = await request.get('/users)
+}
+---
+
+fake auth: 
+user object on state
+auth component in app () (wraps all other components in Router)
+setUser = (username) => {
+    api.fetchUser(username).then(user => {
+        this.setState({{user}})
+    })
+}
+---
+
+auth page:
+
+class Auth extends Component {
+  state = {
+   username : ''
+  }
+  render() {
+    return (
+        <div>
+            <form this.handleSubmit={this.handleSubmit}>
+                <label>Enter username:</label>
+                <input onChange={this.handleChange}/ value={this.state.username}>
+                <button>Log in</button>
+            </form>
+        </div>
+    )
+
+    handleChange (event) => {
+        const { value } = event.target;
+        this setState({username: value})
+    }
+
+    handleSubmit (event) => {
+        event.preventDefault()
+        const { value } = event.target;
+        this setState({username: value})
+    }
+  } 
+
+
+auth:
+if user return childrenelse return auth form
+---
+
+this.props.children <<<<<-------
+///
+<Component user={this.state.user}
+///
+<section>
+---
+
+insomnia (postman)
+organise imports
+
+-----
+
+loading:
+
+state: {
+    isLoading: true;
+}
+
+in render:
+if (isLoading) RETURN loading message
+set isLoading to false in fetchArticles etc setState
+
+---
+
+voting:
+(optimistic rendering)
+pass user from app
+
+class voting extends Component {
+    state: {
+        voteChange
+    }
+    render() {
+        const votes this.props
+        const voteChange this.state
+        return (
+            <div>
+            <button onClick={() => this.addVote(1)} disabled ={voteChange === 1}>vote up</button> //mixed article & voter components
+            <p>votes: {props.article.votes}</p>
+            <button onClick={this.addVote}>vote down</button>
+
+            </div>
+        )
+    }
+
+addVote = (direction) => {
+    const {article_id} = this.props;
+    api.vote(article_id, direction)
+    this.setState({voteChange: state.voteChange+direction})
+}
+
+}
+
+
+---
+
+export const voteOnArticle = async ({article_id, comment_id, direction}) => { // DRY
+    const {data} = await request.patch(`/articles/${article_id}`, {inc_votes})
+    return data;
+}
+
+---
+
+div app
+nav
+header
+auth // this.props.children
+router
+    articles
+    article
+/router
+/auth
+sidebar
+footer
+---
+
+React context
+
+---
+
+reach router
+
+---
+
+ERRORS:
+
+noMatch component - page not found
+render in line with articles - <NoMatch default /> - error message/link back home
+
+REQUIRED keyword on input HTML element- prevents submission of form if field holds no value
+
+errors sent back by Axios - catch block chained after .then within methods:
+.catch(err => {
+    this.setState({
+        errorStatus: err.response.status
+    })
+})
+
+---
+
+if (errorStatus !== null) return <h3>Error loading article... {this.state.errorStatus} -->> extract to error component
+is (isLoading) ...
+
+---
+
+const error = ({errorStatus, text}) => {
+    const imgSrcRef = {
+        404: 'f',
+        400: 'd'
+    }
+
+    etc...
+}
+
+DELETE ARTICLE
+
+{user.username && <button>delete article</button}
+
+---
+
+NAVIGATE - from reach router
+
+this.props.navigate('/articles', {state: {articleDeleted: true}}) (belongs to reachrouter, can alternatively be imported(if not component withing router))  
+
+const {articleDeleted} = this.props.location.state; // on page navigated to
+{articleDeleted && <p>article successfully deleted</p>} 
+
+// navigate when creating (go to created)
+
+---
+
+PAGINATION
+
+<section className="list">
+articles...
+
+
+
+.list {
+    height: 100%;
+    overflow-y: auto;
+}
+
+
+state = {
+    page: 1
+}
+
+addScrollEventListener = () => {
+    document.querySelector(".list").addEventListener("scroll", this.handleScroll)
+}
+
+handleScroll = throttle(() => {
+    const {clientHeight, scrolltop, scrollheight} = event.target;
+if (scrolltop + clientHeight >= scrollheight-100)
+}, 2000) //
+
+getarticles - topic page .then newArticles -> if page one, set state articles: newArticles
+API
+
+
+---
+
+npm i lodash.throttle
