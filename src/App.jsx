@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import {  Router } from "@reach/router";
+import { Router } from "@reach/router";
 import Articles from "./components/Articles";
 import Topics from "./components/Topics";
 import User from "./components/User";
@@ -18,22 +18,41 @@ import SingleArticle from './components/SingleArticle'
 import "./App.css";
 
 class App extends Component {
+  state = {
+    user: null
+  }
   render() {
+    const { user } = this.state
     return (
       <div className="App">
-        <Nav />
-        <Header/>
+        <Nav user={user} setUser={this.setUser} />
+        <Header />
         <Router className="routerWrapper">
           <Home path="/" />
-          <Articles path="/articles" />
-          <SingleArticle path="/articles/:article_id"/>
+          <Articles user={user} path="/articles" />
+          <SingleArticle path="/articles/:article_id" />
           <Topics path="/topics" />
-          <ArticlesByTopic path="/topics/:topic/articles"/>
+          <ArticlesByTopic path="/topics/:topic/articles" />
         </Router>
-        <SideBarTab/>
-        <Footer/>
+        <SideBarTab />
+        <Footer />
       </div>
     );
+  }
+
+  componentDidMount() {
+    const savedUser = JSON.parse(sessionStorage.getItem('user'))
+    savedUser ? this.setState({
+      user: savedUser
+    }) : this.setState({
+      user: null
+    })
+  }
+
+  setUser = (user) => {
+    sessionStorage.setItem('user', JSON.stringify(user))
+    this.setState({ user })
+
   }
 }
 

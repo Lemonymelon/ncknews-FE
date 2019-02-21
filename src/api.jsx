@@ -15,7 +15,8 @@ export const fetchSingleArticle = async (article_id) => {
 };
 
 export const addArticle = async (articleObj) => {
-  const { data } = await
+  const { data } = await axios.post(`${BASE_URL}/api/articles`);
+  return data;
 };
 
 export const fetchTopics = async () => {
@@ -32,4 +33,9 @@ export const fetchArticlesByTopic = async (topic) => {
 export const fetchCommentsByArticle = async (article_id) => {
   const { data: { comments } } = await axios.get(`${BASE_URL}/api/articles/${article_id}/comments`);
   return comments;
+};
+
+export const fetchUsers = async () => {
+  const { data: { users } } = await axios.get(`${BASE_URL}/api/users`);
+  return users;
 };

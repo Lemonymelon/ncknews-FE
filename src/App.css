@@ -27,7 +27,13 @@
 .Nav {
   background-color: grey;
   grid-area: nav;
-  text-align: center
+  text-align: center;
+  justify-items: center;
+}
+
+.Nav span {
+
+ 
 }
 
 .Header {
