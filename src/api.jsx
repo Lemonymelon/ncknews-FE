@@ -15,9 +15,12 @@ export const fetchSingleArticle = async (article_id) => {
 };
 
 export const addArticle = async (topic, articleObj) => {
-  console.log(articleObj, topic);
-  const { data } = await axios.post(`${BASE_URL}/api/topics/${topic}/articles`);
-  console.log(data);
+  const { data: { article } } = await axios.post(`${BASE_URL}/api/topics/${topic}/articles`, articleObj);
+  return article;
+};
+
+export const removeArticle = async (article_id) => {
+  const { data } = await axios.delete(`${BASE_URL}/api/articles/${article_id}`);
   return data;
 };
 
@@ -30,6 +33,11 @@ export const fetchTopics = async () => {
 export const fetchArticlesByTopic = async (topic) => {
   const { data: { articles } } = await axios.get(`${BASE_URL}/api/topics/${topic}/articles`);
   return articles;
+};
+
+export const addCommentToArticle = async (article_id, commentObject) => {
+  const { data: { comment } } = await axios.post(`${BASE_URL}/api/articles/${article_id}/comments`, commentObject);
+  return comment;
 };
 
 export const fetchCommentsByArticle = async (article_id) => {

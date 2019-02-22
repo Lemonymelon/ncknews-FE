@@ -7,28 +7,31 @@ import * as api from '../api'
 class ArticlesByTopic extends Component {
     state = {
         articles: [],
-        showAddForm: true
+        showAddForm: true,
+        isLoading: true
     }
 
     render() {
         const { user, topic } = this.props
-        const { articles, showAddForm } = this.state;
+        const { articles, showAddForm, isLoading } = this.state;
         console.log(topic)
 
-        return <div>
-            <button id="addArticleButton" onClick={this.showForm}>Add Article to {topic}</button>
-            {showAddForm && <AddArticleForm user={user} topic={topic} />}
-            <br />
-            {articles.map(article => {
-                return (
-                    <div key={article.article_id}>
-                        <Link to={`/articles/${article.article_id}`} ><span>{article.title} || votes: {article.votes} || comments: {article.comment_count}</span></Link>
-                        <br />
-                    </div>
-                )
-            })}
+        return (
+            isLoading ? <div>LOADING</div> :
+                <div>
+                    <button id="addArticleButton" onClick={this.showForm}>Add Article to {topic}</button>
+                    {showAddForm && <AddArticleForm user={user} topic={topic} />}
+                    <br />
+                    {articles.map(article => {
+                        return (
+                            <div key={article.article_id}>
+                                <Link to={`/articles/${article.article_id}`} ><span>{article.title} || votes: {article.votes} || comments: {article.comment_count}</span></Link>
+                                <br />
+                            </div>
+                        )
+                    })}
 
-        </div>
+                </div>)
 
     }
 
@@ -38,6 +41,7 @@ class ArticlesByTopic extends Component {
 
             this.setState({
                 articles,
+                isLoading: false
             })
         })
     }

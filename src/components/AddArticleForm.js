@@ -27,8 +27,8 @@ class AddArticleForm extends Component {
                             )
                         })}
                     </select>}
-                    <input onChange={this.handleChange} type="text" id="title" required />
-                    <input type="text" id="body" required onChange={this.handleChange} />
+                    <input onChange={this.handleChange} type="text" id="title" placeholder="Title" required />
+                    <input type="text" id="body" required onChange={this.handleChange} placeholder="Body" />
                     <button type="submit">POST</button>
                 </form>
             </div>
@@ -61,10 +61,8 @@ class AddArticleForm extends Component {
             title,
             body,
             username
-        }).then(({ res }) => {
-            console.log(res, 'r')
         }).catch((err) => {
-            console.log(err, 'e');
+            console.log(err, '<<-error');
         });
 
 
@@ -73,4 +71,3 @@ class AddArticleForm extends Component {
 
 export default AddArticleForm;
 
-{/* require array of topics in */ }

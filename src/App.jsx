@@ -18,8 +18,9 @@ import SingleArticle from './components/SingleArticle'
 import "./App.css";
 
 class App extends Component {
+
   state = {
-    user: null
+    user: JSON.parse(sessionStorage.getItem('user')) || null
   }
   render() {
     const { user } = this.state
@@ -30,7 +31,7 @@ class App extends Component {
         <Router className="routerWrapper">
           <Home path="/" />
           <Articles user={user} path="/articles" />
-          <SingleArticle path="/articles/:article_id" />
+          <SingleArticle user={user} path="/articles/:article_id" />
           <Topics path="/topics" />
           <ArticlesByTopic user={user} path="/topics/:topic/articles" />
         </Router>
@@ -41,12 +42,12 @@ class App extends Component {
   }
 
   componentDidMount() {
-    const savedUser = JSON.parse(sessionStorage.getItem('user'))
-    savedUser ? this.setState({
-      user: savedUser
-    }) : this.setState({
-      user: null
-    })
+    // const savedUser = JSON.parse(sessionStorage.getItem('user'))
+    // savedUser ? this.setState({
+    //   user: savedUser
+    // }) : this.setState({
+    //   user: null
+    // })
   }
 
   setUser = (user) => {
