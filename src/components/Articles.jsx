@@ -1,13 +1,15 @@
 import React, { Component } from "react";
 import { Link } from "@reach/router";
 import AddArticleForm from './AddArticleForm'
-
+import SortBy from './SortBy'
 
 import * as api from '../api'
 
 class Articles extends Component {
   state = {
     articles: [],
+    sort_by: '',
+    order: '',
     showAddForm: false
 
   };
@@ -16,6 +18,7 @@ class Articles extends Component {
     const { articles, showAddForm } = this.state;
     return <div className="">
       <p>Articles</p>
+      <SortBy handleChange={this.handleChange} />
       <button id="addArticleButton" onClick={this.showForm}>Add Article</button>
       {showAddForm && <AddArticleForm user={user} />}
       <br />
@@ -31,11 +34,23 @@ class Articles extends Component {
   }
 
   componentDidMount() {
-    api.fetchArticles().then((articles) => {
+    const { sort_by } = this.state;
+    api.fetchArticles(sort_by).then((articles) => {
       this.setState({
         articles,
       })
     })
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.sort_by !== this.state.sort_by) {
+      const { sort_by } = this.state;
+      api.fetchArticles(sort_by).then((articles) => {
+        this.setState({
+          articles,
+        })
+      })
+    }
   }
 
   showForm = (event) => {
@@ -44,6 +59,11 @@ class Articles extends Component {
     })
   }
 
+  handleChange = (event) => {
+    this.setState({
+      sort_by: event.target.value
+    })
+  }
 
 }
 

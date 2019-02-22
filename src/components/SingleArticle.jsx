@@ -3,6 +3,8 @@ import * as api from '../api'
 import Comments from './Comments'
 import Voter from './Voter'
 
+
+
 class SingleArticle extends Component {
     state = {
         article: {},
@@ -16,9 +18,10 @@ class SingleArticle extends Component {
 
         return (
             <div>
+
                 {username ? username === author && <button onClick={this.RevealConfirm}>DELETE ARTICLE</button> : null}
 
-                {revealDeleteConfirm && <button onClick={() => { this.DeleteArticle(this.props.article_id) }}>Properly, actually delete article for realzies</button>}
+                {revealDeleteConfirm && <button onClick={() => { this.DeleteArticle(this.props.article_id) }}>Delete for realzies</button>}
 
                 <span>{topic}</span>
                 <span>{title}</span>
@@ -43,10 +46,6 @@ class SingleArticle extends Component {
 
     AmendArticle = async (article_id, inc_votes) => {
         const [updatedArticle] = await api.updateArticleVotes(article_id, inc_votes);
-        console.log(updatedArticle)
-        this.setState({
-            article: updatedArticle
-        })
     }
 
     DeleteArticle = (article_id) => {

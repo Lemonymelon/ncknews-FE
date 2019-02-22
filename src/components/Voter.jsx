@@ -19,9 +19,10 @@ class Voter extends Component {
         );
     }
     Vote = async (inc_votes) => {
-        console.log(inc_votes)
+        console.log(inc_votes, 'voter')
         // make call -> ignore returned votes
-        const [updatedArticle] = await api.updateArticleVotes(this.props.article_id, inc_votes);
+        this.props.updateAPIvotes(this.props.article_id, inc_votes);
+
         this.setState((prevState) => {
             return { voteChange: prevState.voteChange + inc_votes }
         })

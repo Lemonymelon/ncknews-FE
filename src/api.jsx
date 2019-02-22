@@ -2,8 +2,10 @@ import axios from 'axios';
 
 const BASE_URL = 'https://lm-knews.herokuapp.com';
 
-export const fetchArticles = async () => {
-  const { data: { articles } } = await axios.get(`${BASE_URL}/api/articles`);
+export const fetchArticles = async (sort_by) => {
+  const params = sort_by ? { sort_by } : '';
+  console.log(params);
+  const { data: { articles } } = await axios.get(`${BASE_URL}/api/articles`, { params });
   // console.log(articles);
   return articles;
 };
@@ -25,8 +27,9 @@ export const removeArticle = async (article_id) => {
 };
 
 export const updateArticleVotes = async (article_id, inc_votes) => {
-  console.log(inc_votes);
+  console.log(inc_votes, 'api');
   const { data: { article } } = await axios.patch(`${BASE_URL}/api/articles/${article_id}`, inc_votes);
+  console.log(article);
   return article;
 };
 
