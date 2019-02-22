@@ -33,8 +33,8 @@ export const updateArticleVotes = async (article_id, inc_votes) => {
   return article;
 };
 
-export const addTopic = async (topic) => {
-  const { data } = await axios.post(`${BASE_URL}`);
+export const addTopic = async (slug, description) => {
+  const { data } = await axios.post(`${BASE_URL}/topics`, { slug, description });
 };
 
 export const fetchTopics = async () => {
