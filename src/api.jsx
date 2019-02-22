@@ -24,6 +24,12 @@ export const removeArticle = async (article_id) => {
   return data;
 };
 
+export const updateArticleVotes = async (article_id, inc_votes) => {
+  console.log(inc_votes);
+  const { data: { article } } = await axios.patch(`${BASE_URL}/api/articles/${article_id}`, inc_votes);
+  return article;
+};
+
 export const fetchTopics = async () => {
   const { data: { topics } } = await axios.get(`${BASE_URL}/api/topics`);
   // console.log(topics);
@@ -35,10 +41,12 @@ export const fetchArticlesByTopic = async (topic) => {
   return articles;
 };
 
+
 export const addCommentToArticle = async (article_id, commentObject) => {
   const { data: { comment } } = await axios.post(`${BASE_URL}/api/articles/${article_id}/comments`, commentObject);
   return comment;
 };
+
 
 export const fetchCommentsByArticle = async (article_id) => {
   const { data: { comments } } = await axios.get(`${BASE_URL}/api/articles/${article_id}/comments`);

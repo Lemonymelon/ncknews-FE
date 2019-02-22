@@ -7,7 +7,7 @@ import * as api from '../api'
 class ArticlesByTopic extends Component {
     state = {
         articles: [],
-        showAddForm: true,
+        showAddForm: false,
         isLoading: true
     }
 
@@ -43,6 +43,11 @@ class ArticlesByTopic extends Component {
                 articles,
                 isLoading: false
             })
+        })
+    }
+    showForm = (event) => {
+        this.setState({
+            showAddForm: true
         })
     }
 }

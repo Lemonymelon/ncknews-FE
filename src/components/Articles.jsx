@@ -8,7 +8,7 @@ import * as api from '../api'
 class Articles extends Component {
   state = {
     articles: [],
-    showAddForm: true
+    showAddForm: false
 
   };
   render() {
