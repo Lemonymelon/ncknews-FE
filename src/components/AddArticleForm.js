@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import * as api from '../api'
+import { navigate } from '@reach/router'
 
 
 
@@ -9,7 +10,8 @@ class AddArticleForm extends Component {
         topics: [],
         topic: '',
         title: '',
-        body: ''
+        body: '',
+        newArticleID: null
     }
     render() {
         const { topics } = this.state;
@@ -43,6 +45,11 @@ class AddArticleForm extends Component {
         })
     }
 
+    componentDidUpdate() {
+        const { newArticleID } = this.state
+        if (newArticleID) navigate(`/articles/${newArticleID}`)
+    }
+
     handleChange = (event, { id } = event.target) => {
         const { value } = event.target
         this.setState({
@@ -61,6 +68,8 @@ class AddArticleForm extends Component {
             title,
             body,
             username
+        }).then(({ article_id }) => {
+            this.setState({ newArticleID: 1 })
         }).catch((err) => {
             console.log(err, '<<-error');
         });

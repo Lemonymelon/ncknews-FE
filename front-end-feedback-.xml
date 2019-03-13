@@ -1,0 +1,43 @@
+UX
+Styling need completing here...
+Pick a colour scheme and go with it. Once done 
+Voting down on an article actually votes up… ✓
+I can’t see the rest of the comments. They just run of the bottom of the page. :(
+What does the user link do?
+Usernames need to start as actual values or tell the user who to login as. They won’t know what valid usernames are. ✓
+Errors need to be displayed if an invalid username is entered. ✓
+NC news banner should be a link back to the homepage. ✓
+Tabs component will have to be moved on mobile view. Other components should be fine however.
+Sorting is great but the buttons stay checked when you press them.
+Can I vote on comments as well please? ✓
+Footer should say something other than footer.
+Change the title and favicon from the basic react app.
+Posting articles works in an interesting way…. ✓
+Need a visual confirmation of posting an article. Navigate to that article? ✓
+Posting doesn’t work on an individual topic page. ? ✓
+Posting comments works but should be added to the list optimistically.
+Am I allowed to post without being logged in?
+Console.loooooooogs…….. Clear em out :D
+Can i delete things?
+
+Code
+Readme needs writing. Make sure you include links to both the live version and the back-end.
+Is this deployed? Make sure the redirects work if it is.
+Reach router is not a dependency, add it to the package.json. ✓
+Remove the .env file, package.lock.json and eslint from your package.json. Your rules will still work but react-scripts requires a specific version that you have overwritten. This will stop the preflight error. ✓
+Don’t call session storage in the state directly. Use the appropriate lifecycle methods. ✓
+Remove any files you are not using.
+You need to put inc_votes into an object in the api call to fix the voting bug. ✓
+You have setup your style folder and then not used it. Put all the css in here. :D 
+User and sidebar components have not yet been implemented.
+Deleting an article doesn’t re-render anything.
+Error handling is conspicuously missing.
+Methods in Single Article shouldn’t have capitals. ✓
+Articles and ArticlesByTopic are extremely similar. If the only thing that’s going to change is the api call just check the props and decide it there. ROUTES?
+Pagination needs adding to get the rest of your articles.
+
+Pagination
+User page
+Errors
+Sidebar
+Styling

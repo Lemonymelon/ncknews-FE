@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import * as api from '../api'
+import Voter from './Voter'
 
 class Comments extends Component {
     state = {
@@ -7,7 +8,7 @@ class Comments extends Component {
         comments: []
     }
     render() {
-        const { comments } = this.state;
+        const { comments, } = this.state;
         return (
             <div>
                 {this.props.user && <form onSubmit={this.HandleSubmit}>
@@ -15,12 +16,15 @@ class Comments extends Component {
                     <button type="submit">PUBLISH COMMENT</button>
                 </form>}
                 {comments.map(comment => {
+                    const { comment_id, author, created_at, body, votes } = comment
                     return (
-                        <div key={comment.comment_id} className="listItem">
-                            <span>{comment.author}</span>
-                            <span>{comment.created_at}</span>
-                            <span>{comment.body}</span>
-                            <h3>{comment.votes}</h3>
+                        <div key={comment_id} className="listItem">
+                            <span>{author}</span>
+                            <span>{created_at}</span>
+                            <span>{body}</span>
+
+                            <Voter votes={votes} article_id={this.props.article_id} comment_id={comment_id} updateAPIvotes={this.amendComment} />
+
                         </div>
                     )
                 })}
@@ -43,9 +47,14 @@ class Comments extends Component {
         }
     }
 
+
+    amendComment = async (article_id, inc_votes, comment_id) => {
+        const updatedComment = await api.updateCommentVotes(article_id, inc_votes, comment_id);
+        console.log(updatedComment)
+    }
+
     HandleChange = (event) => {
         const { value } = event.target;
-        console.log(value)
         this.setState({
             body: value
 

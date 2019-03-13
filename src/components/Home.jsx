@@ -5,11 +5,13 @@ import { Link } from "@reach/router";
 
 class Home extends Component {
     render() {
+
+
         return (
             <div className="Home">
-               HOME
+                HOME
                <Link to="articles"><h1>BROWSE ALL ARTICLES</h1></Link>
-                <Link to="topics"><h1>BROWSE BY TOPIC</h1></Link>                
+                <Link to="topics"><h1>BROWSE BY TOPIC</h1></Link>
             </div>
         );
     }

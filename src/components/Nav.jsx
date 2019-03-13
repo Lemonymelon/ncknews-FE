@@ -1,42 +1,79 @@
 import { Link } from "@reach/router";
 import React, { Component } from "react";
-import * as api from '../api'
+import * as api from "../api";
+import "../style/Nav.css";
+import house from "../house.png";
+import anon from "../anon.png";
 
 class Nav extends Component {
   state = {
-    usernameValue: '',
+    usernameValue: "",
     users: []
-  }
+  };
   render() {
     const { user, setUser } = this.props;
+    const { users } = this.state;
     return (
       <div className="Nav">
-        <section className="navLinks">
+        <div className="transbox">
           <Link to="/">
-            <span>HOME</span>
+            <img className="house" src={house} />
           </Link>
-          {" | "}
-          <Link to="/articles">
-            <span>ARTICLES</span>
-          </Link>
-          {" | "}
-          <Link to="/topics">
-            <span>TOPICS</span>
-          </Link>
-          {" | "}
-          <Link to="/user">
-            <span>USER</span>
-          </Link>
-        </section>
-        {user ? <div>
-          <span>logged in as: {user.username}</span><br /><img src={user.avatar_url} /><button onClick={() => { setUser(null) }}>log out</button>
-        </div> :
-          <section className="login">
-            <form onSubmit={this.handleSubmit}>
-              <input onChange={this.handleChange} placeholder="Enter username" name="username" id="username" />
-              <button type="submit">log in</button>
-            </form>
-          </section>}
+
+          <section className="navLinks">
+            <Link to="/articles">
+              <span>ARTICLES</span>
+            </Link>
+            {" | "}
+            <Link to="/topics">
+              <span>TOPICS</span>
+            </Link>
+            {" | "}
+            <Link to="/user">
+              <span>USER</span>
+            </Link>
+          </section>
+          {user ? (
+            <div>
+              <Link to="/user">
+                {" "}
+                <img className="avatar" src={user.avatar_url} />
+              </Link>
+              <br />
+              <span>logged in as: {user.username}</span>
+              <br />
+              <button
+                onClick={() => {
+                  setUser(null);
+                }}
+              >
+                log out
+              </button>
+            </div>
+          ) : (
+            <section className="login">
+              <form onSubmit={this.handleSubmit}>
+                <select
+                  onChange={this.handleChange}
+                  placeholder="Enter username"
+                  name="username"
+                  id="username"
+                >
+                  <option defaultValue>Select user</option>
+                  {users.map(user => {
+                    return (
+                      <option key={user.username} value={user.username}>
+                        {user.username}
+                      </option>
+                    );
+                  })}
+                </select>
+                <br />
+                <button type="submit">log in</button>
+              </form>
+            </section>
+          )}
+        </div>
       </div>
     );
   }
@@ -45,23 +82,22 @@ class Nav extends Component {
     api.fetchUsers().then(users => {
       this.setState({
         users
-      })
-    })
+      });
+    });
   }
 
-  handleSubmit = (event) => {
+  handleSubmit = event => {
     event.preventDefault();
     const { setUser } = this.props;
     const { usernameValue, users } = this.state;
     const [user] = users.filter(user => user.username === usernameValue);
-    if (user) setUser(user)
+    if (user) setUser(user);
+  };
 
-  }
-
-  handleChange = (event) => {
+  handleChange = event => {
     const { value } = event.target;
-    this.setState({ usernameValue: value })
-  }
+    this.setState({ usernameValue: value });
+  };
 }
 
 export default Nav;

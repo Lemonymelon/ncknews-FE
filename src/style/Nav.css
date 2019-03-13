@@ -1,0 +1,88 @@
+.Nav {
+  grid-area: nav;
+  font-family: "Roboto Mono", monospace;
+}
+.transbox {
+  /* opacity: 0.1; */
+  background-color: rgba(187, 187, 187, 0.2);
+  border: solid rgba(0, 0, 0, 0.2) 2px;
+
+  text-align: center;
+  display: grid;
+  height: 100%;
+  grid-template-columns: 100px 1fr 100px;
+  grid-template-areas: "house links login";
+  transition: 0.6s;
+}
+
+.transbox:hover {
+  background-color: rgba(187, 187, 187, 0.5);
+  border: solid rgba(0, 0, 0, 1) 2px;
+}
+
+.transbox img {
+  opacity: 1;
+}
+
+.house {
+  align-self: stretch;
+  height: 100px;
+  border-radius: 50%;
+}
+
+.navLinks {
+  margin: auto;
+}
+
+.login {
+  grid-area: login;
+  margin: auto;
+  width: 100px;
+}
+
+.login button {
+  background: rgb(2, 0, 36);
+  color: white;
+  background: radial-gradient(
+    circle,
+    rgba(2, 0, 36, 1) 0%,
+    rgba(9, 9, 121, 1) 5%,
+    rgba(0, 212, 255, 1) 100%
+  );
+  border: solid white 3px;
+  border-radius: 5%;
+  font-size: 12px;
+  font-weight: 700;
+  width: 90%;
+  margin-right: 20px;
+}
+
+.login select {
+  font-size: 12px;
+  font-weight: 700;
+  text-align: center;
+  color: white;
+  border-radius: 5px;
+  background: rgba(92, 38, 149, 0.6);
+  border: solid white 3px;
+  width: 90%;
+  margin-right: 20px;
+  margin-bottom: 5px;
+}
+.login button:hover {
+  background: radial-gradient(
+    circle,
+    rgba(2, 0, 36, 0.6) 0%,
+    rgba(9, 9, 121, 0.6) 5%,
+    rgba(0, 212, 100, 0.6) 100%
+  );
+}
+
+.avatar {
+  align-self: center;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.Nav img {
+}

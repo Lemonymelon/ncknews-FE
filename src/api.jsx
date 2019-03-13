@@ -18,6 +18,7 @@ export const fetchSingleArticle = async (article_id) => {
 
 export const addArticle = async (topic, articleObj) => {
   const { data: { article } } = await axios.post(`${BASE_URL}/topics/${topic}/articles`, articleObj);
+  console.log(article);
   return article;
 };
 
@@ -27,9 +28,7 @@ export const removeArticle = async (article_id) => {
 };
 
 export const updateArticleVotes = async (article_id, inc_votes) => {
-  console.log(inc_votes, 'api');
-  const { data: { article } } = await axios.patch(`${BASE_URL}/articles/${article_id}`, inc_votes);
-  console.log(article);
+  const { data: { article } } = await axios.patch(`${BASE_URL}/articles/${article_id}`, { inc_votes });
   return article;
 };
 
@@ -58,6 +57,13 @@ export const addCommentToArticle = async (article_id, commentObject) => {
 export const fetchCommentsByArticle = async (article_id) => {
   const { data: { comments } } = await axios.get(`${BASE_URL}/articles/${article_id}/comments`);
   return comments;
+};
+
+export const updateCommentVotes = async (article_id, inc_votes, comment_id) => {
+  console.log(article_id, inc_votes, comment_id);
+  const { data: { comment } } = await axios.patch(`${BASE_URL}/articles/${article_id}/comments/${comment_id}`, { inc_votes });
+  console.log(comment);
+  return comment;
 };
 
 export const fetchUsers = async () => {

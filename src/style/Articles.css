@@ -1,0 +1,30 @@
+.articlePageContents {
+  text-align: center;
+  align-content: center;
+  margin: auto;
+}
+
+.articleItem {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  grid-template-areas:
+    "articleTitle articleTitle articleTitle"
+    "articleDate articleAuthor articleDeets";
+}
+
+.articleTitle {
+  grid-area: articleTitle;
+}
+
+.articleDate {
+  grid-area: articleDate;
+}
+
+.articleAuthor {
+  grid-area: articleAuthor;
+}
+
+.articleDeets {
+  grid-area: articleDeets;
+}

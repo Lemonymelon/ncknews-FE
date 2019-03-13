@@ -1,9 +1,15 @@
-import React from "react";
+import React, { Component } from 'react';
+import { Link } from "@reach/router";
+import '../style/Header.css'
 
-export const Header = () => {
-  return (
-    <div className="Header">
-      <span>NC Knews</span>
-    </div>
-  );
-};
+class Header extends Component {
+  render() {
+    return (
+      <div className="Header">
+        <Link to="/"><span>NC Knews</span></Link>
+      </div>
+    );
+  }
+}
+
+export default Header;

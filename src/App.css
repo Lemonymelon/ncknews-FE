@@ -1,109 +1,88 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto+Mono");
 
-
-.App, .menuPageLayoutSideBar {
+.App {
   height: 100vh;
   display: grid;
-  grid-template-columns:  1fr 1fr 2fr 4fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 2fr 4fr 1fr 1fr;
   grid-template-rows: 1fr 2fr 6fr 1fr;
   overflow: hidden;
+  border: solid black 1p;
 }
 
-.App{  
-  
-  grid-template-areas: 
-  "nav nav nav nav nav nav"
-  ". . header header . ."
-  ". component component component component sideBarTab"
-  "footer footer footer footer footer footer"}
+.App {
+  background: linear-gradient(52deg, #1049a5, #ffffff);
+  background-size: 400% 400%;
 
-.menuPageLayoutSideBar{  
-  grid-template-areas: 
-  "nav nav nav nav nav"
-  "header header . sideBar sideBar"
-  "menuWheel menuWheel . sideBar sideBar"
-  "footer footer footer footer footer"}
+  -webkit-animation: background-gradient 100s ease infinite;
+  -moz-animation: background-gradient 100s ease infinite;
+  animation: background-gradient 100s ease infinite;
 
+  overflow-y: scroll;
 
-.Nav {
-  background-color: grey;
-  grid-area: nav;
-  text-align: center;
-  justify-items: center;
+  grid-template-areas:
+    "nav nav nav nav nav nav"
+    ". . header header . ."
+    ". component component component component ."
+    "footer footer footer footer footer footer";
 }
 
-.Nav span {
-
- 
+@-webkit-keyframes background-gradient {
+  0% {
+    background-position: 0% 22%;
+  }
+  50% {
+    background-position: 100% 79%;
+  }
+  100% {
+    background-position: 0% 22%;
+  }
 }
-
-.Header {
-  grid-area: header;
-  background-color: teal;
-  text-align: center;
-  font-size: 100px;
+@-moz-keyframes background-gradient {
+  0% {
+    background-position: 0% 22%;
+  }
+  50% {
+    background-position: 100% 79%;
+  }
+  100% {
+    background-position: 0% 22%;
+  }
 }
-
-.ListBar {
-  grid-area: listBar;
-  background-color: salmon;
-
-}
-
-.SideBar {
-  grid-area: sideBar;
-  background-color: yellow;
-
+@keyframes background-gradient {
+  0% {
+    background-position: 0% 22%;
+  }
+  50% {
+    background-position: 100% 79%;
+  }
+  100% {
+    background-position: 0% 22%;
+  }
 }
 
 .Footer {
   grid-area: footer;
-  background-color: purple;
-
+  background-color: rgba(187, 187, 187, 0.2);
+  border: solid rgba(0, 0, 0, 0.4) 2px;
+}
+.routerWrapper::-webkit-scrollbar {
+  width: 0 !important;
 }
 
 .routerWrapper {
   grid-area: component;
   width: 100%;
   display: flex;
-  overflow: hidden;
-
-}
-
-.MenuWheel {
-  background-color: green;
-  width: 100%;
-  justify-content: center;
-  align-items: center;
-  align-content: center;
-  }
-
-.SideBarTab {
-  grid-area: sideBarTab;
-  background-color: red;
+  overflow-y: scroll;
+  overflow: -moz-scrollbars-none;
+  -ms-overflow-style: none;
+  background: rgba(255, 255, 255, 0.1);
+  border: solid rgba(0, 0, 0, 0.2) 2px;
+  border-radius: 20px;
+  height: 95%;
 }
 
 .Home {
   background-color: blue;
   width: 100%;
 }
-/* 
-.listPageLayout, .listPageLayoutSideBar {
-  height: 100vh;
-  display: grid;
-  grid-template-columns:  1fr 1fr 2fr 4fr 1fr 1fr;
-  grid-template-rows: 1fr 2fr 6fr 1fr;
-}
-
-.listPageLayout{  
-  grid-template-areas: 
-  "nav nav nav nav nav nav"
-  ". . header header . ."
-  ". list list list list sideBarTab"
-  "footer footer footer footer footer footer"}
-
-  .listPageLayoutSideBar{  
-    grid-template-areas: 
-    "nav nav nav nav nav"
-    "header header . sideBar sideBar"
-    ". list list . sideBar sideBar"
-    "footer footer footer footer footer"} */

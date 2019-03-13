@@ -8,7 +8,6 @@ class Voter extends Component {
     render() {
         const { votes } = this.props;
         const { voteChange } = this.state;
-        console.log(voteChange, votes)
         return (
 
             < section >
@@ -20,13 +19,13 @@ class Voter extends Component {
     }
     Vote = async (inc_votes) => {
         console.log(inc_votes, 'voter')
-        // make call -> ignore returned votes
-        this.props.updateAPIvotes(this.props.article_id, inc_votes);
+
+        this.props.updateAPIvotes(this.props.article_id, inc_votes, this.props.comment_id);
 
         this.setState((prevState) => {
             return { voteChange: prevState.voteChange + inc_votes }
         })
-        // this.props.updateAPIvotes(this.props.article_id, { inc_votes })
+
     }
 
 }
