@@ -24,11 +24,11 @@ class Nav extends Component {
             <Link to="/articles">
               <span>ARTICLES</span>
             </Link>
-            {" | "}
+            <span className="divvyLine">{" | "}</span>
             <Link to="/topics">
               <span>TOPICS</span>
             </Link>
-            {" | "}
+            <span className="divvyLine">{" | "}</span>
             <Link to="/user">
               <span>USER</span>
             </Link>

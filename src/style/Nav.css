@@ -34,6 +34,15 @@
   margin: auto;
 }
 
+.navLinks span {
+  display: inline-block;
+  margin: 0 10px;
+  font-size: 30px;
+  font-weight: 100;
+  color: white;
+  text-shadow: -2px -2px 0 #000;
+}
+
 .login {
   grid-area: login;
   margin: auto;
@@ -84,5 +93,14 @@
   border-radius: 50%;
 }
 
-.Nav img {
+@media screen and (max-width: 500px) {
+  .navLinks span {
+    display: inline-block;
+    font-size: 20px;
+  }
+
+  .divvyLine span {
+    display: none;
+    color: green;
+  }
 }

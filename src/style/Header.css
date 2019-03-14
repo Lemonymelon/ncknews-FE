@@ -4,6 +4,7 @@
   font-family: "Fredericka the Great", cursive;
   text-align: center;
   grid-area: header;
+  position: relative;
 }
 
 .Header span {
