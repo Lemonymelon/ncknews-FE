@@ -59,7 +59,7 @@
     rgba(0, 212, 255, 1) 100%
   );
   border: solid white 3px;
-  border-radius: 5%;
+  border-radius: 20px;
   font-size: 12px;
   font-weight: 700;
   width: 90%;
@@ -93,14 +93,18 @@
   border-radius: 50%;
 }
 
-@media screen and (max-width: 500px) {
+.divvyLine {
+  display: inline;
+}
+
+@media screen and (max-width: 750px) {
   .navLinks span {
-    display: inline-block;
+    display: block;
     font-size: 20px;
   }
 
-  .divvyLine span {
-    display: none;
-    color: green;
+  .divvyLine {
+    display: block;
+    transform: rotate(90deg);
   }
 }

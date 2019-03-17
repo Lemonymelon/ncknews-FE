@@ -12,20 +12,27 @@ class Articles extends Component {
     sort_by: "",
     order: "",
     showAddForm: false,
-    isLoading: true
+    isLoading: true,
+    loginAlert: false
   };
   render() {
     const { user } = this.props;
-    const { articles, showAddForm, isLoading } = this.state;
+    const { articles, showAddForm, isLoading, loginAlert } = this.state;
     return isLoading ? (
       <div>LOADING</div>
     ) : (
       <div className="articlePageContents">
-        <p>Articles</p>
+        <p className="sectionHeader">Articles</p>
         <SortBy handleChange={this.handleChange} />
         <button id="addArticleButton" onClick={this.showForm}>
-          Add Article
+          {!showAddForm && "Add Article"}
+          {showAddForm && "Hide Form"}
         </button>
+        {loginAlert && (
+          <div className="loginAlert">
+            Whoops! You silly goose. Please log in to post an article.
+          </div>
+        )}
         {showAddForm && <AddArticleForm user={user} />}
         <br />
         {articles.map(article => {
@@ -47,6 +54,7 @@ class Articles extends Component {
               <div className="articleDate">{created_at}</div>
               <div className="articleAuthor">{author}</div>
               <div className="articleDeets">deets</div>
+              <br />
             </div>
           );
         })}
@@ -56,6 +64,10 @@ class Articles extends Component {
 
   componentDidMount() {
     const { sort_by } = this.state;
+    if (this.props.user)
+      this.setState({
+        loginAlert: false
+      });
     if (this.props.topic) {
       const { topic } = this.props;
       api.fetchArticlesByTopic(topic).then(articles => {
@@ -83,12 +95,30 @@ class Articles extends Component {
         });
       });
     }
+
+    if (!prevProps.user && this.props.user) {
+      this.setState({
+        loginAlert: false
+      });
+    }
+
+    if (!this.props.user && prevProps.user) {
+      this.setState({
+        showAddForm: false
+      });
+    }
   }
 
   showForm = event => {
-    this.setState({
-      showAddForm: true
-    });
+    if (!this.props.user) {
+      this.setState({
+        loginAlert: true
+      });
+    } else {
+      this.setState({
+        showAddForm: !this.state.showAddForm
+      });
+    }
   };
 
   handleChange = event => {

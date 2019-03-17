@@ -1,20 +1,35 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import { Link } from "@reach/router";
 
-
-
 class Home extends Component {
-    render() {
+  render() {
+    return (
+      <div className="Home">
+        <Link to="articles">
+          <div className="articlesButton">
+            <h3>
+              BROWSE <br />
+              ALL
+              <br />
+              ARTICLES
+            </h3>
+          </div>
+        </Link>
 
-
-        return (
-            <div className="Home">
-                HOME
-               <Link to="articles"><h1>BROWSE ALL ARTICLES</h1></Link>
-                <Link to="topics"><h1>BROWSE BY TOPIC</h1></Link>
-            </div>
-        );
-    }
+        <Link to="topics">
+          <div className="topicsButton">
+            <h3>
+              BROWSE
+              <br />
+              BY
+              <br />
+              TOPIC
+            </h3>
+          </div>
+        </Link>
+      </div>
+    );
+  }
 }
 
 export default Home;

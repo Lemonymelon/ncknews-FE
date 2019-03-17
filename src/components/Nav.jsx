@@ -24,13 +24,11 @@ class Nav extends Component {
             <Link to="/articles">
               <span>ARTICLES</span>
             </Link>
-            <span className="divvyLine">{" | "}</span>
+            <div className="divvyLine">
+              <span>{" | "}</span>
+            </div>
             <Link to="/topics">
               <span>TOPICS</span>
-            </Link>
-            <span className="divvyLine">{" | "}</span>
-            <Link to="/user">
-              <span>USER</span>
             </Link>
           </section>
           {user ? (
@@ -69,7 +67,7 @@ class Nav extends Component {
                   })}
                 </select>
                 <br />
-                <button type="submit">log in</button>
+                <button type="submit">Log in</button>
               </form>
             </section>
           )}

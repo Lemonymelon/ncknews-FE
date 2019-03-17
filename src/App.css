@@ -1,29 +1,106 @@
 @import url("https://fonts.googleapis.com/css?family=Roboto+Mono");
+@import url("https://fonts.googleapis.com/css?family=Pridi");
+
+a {
+  text-decoration: none;
+  color: black;
+}
 
 .App {
   height: 100vh;
   display: grid;
   grid-template-columns: 1fr 1fr 2fr 4fr 1fr 1fr;
-  grid-template-rows: 1fr 2fr 6fr 1fr;
+  grid-template-rows: 1fr 2fr 7fr 1fr 1fr;
   overflow: hidden;
   border: solid black 1p;
 }
 
 .App {
-  background: linear-gradient(52deg, #1049a5, #ffffff);
+  background: linear-gradient(52deg, #1049a5, #e0e4ff);
   background-size: 400% 400%;
-
   -webkit-animation: background-gradient 100s ease infinite;
   -moz-animation: background-gradient 100s ease infinite;
   animation: background-gradient 100s ease infinite;
-
   overflow-y: scroll;
 
   grid-template-areas:
     "nav nav nav nav nav nav"
     ". . header header . ."
     ". component component component component ."
+    ". . . . . ."
     "footer footer footer footer footer footer";
+}
+
+.Footer {
+  grid-area: footer;
+  background-color: rgba(187, 187, 187, 0.2);
+  border: solid rgba(0, 0, 0, 0.4) 2px;
+}
+.Footer div {
+  text-align: center;
+  color: rgba(255, 255, 255, 0.6);
+  margin: auto;
+  padding: 5px;
+}
+.routerWrapper::-webkit-scrollbar {
+  width: 0 !important;
+}
+
+.routerWrapper {
+  grid-area: component;
+  width: 100%;
+  display: flex;
+  overflow: scroll;
+  overflow: -moz-scrollbars-none;
+  -ms-overflow-style: none;
+  background: rgba(255, 255, 255, 0.1);
+  border: solid rgba(0, 0, 0, 0.2) 2px;
+  border-radius: 20px;
+  font-family: "Pridi", serif;
+}
+
+.Home {
+  margin: auto;
+  display: flex;
+  flex-direction: row;
+}
+
+.sectionHeader {
+  font-size: 30px;
+  font-family: "Roboto Mono", monospace;
+  margin: 0;
+}
+
+.articlesButton,
+.topicsButton {
+  margin: 5px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 5px 20px;
+  width: 100px;
+  border: solid white 2px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
+.articlesButton {
+  background-image: url("./docs.png");
+}
+
+.topicsButton {
+  background-image: url("./magnifying-glass-vector.png");
+}
+
+@media screen and (max-width: 750px) {
+  .Home {
+    flex-direction: column;
+  }
+
+  .articlesButton,
+  .topicsButton {
+    font-size: 12px;
+  }
 }
 
 @-webkit-keyframes background-gradient {
@@ -58,31 +135,4 @@
   100% {
     background-position: 0% 22%;
   }
-}
-
-.Footer {
-  grid-area: footer;
-  background-color: rgba(187, 187, 187, 0.2);
-  border: solid rgba(0, 0, 0, 0.4) 2px;
-}
-.routerWrapper::-webkit-scrollbar {
-  width: 0 !important;
-}
-
-.routerWrapper {
-  grid-area: component;
-  width: 100%;
-  display: flex;
-  overflow-y: scroll;
-  overflow: -moz-scrollbars-none;
-  -ms-overflow-style: none;
-  background: rgba(255, 255, 255, 0.1);
-  border: solid rgba(0, 0, 0, 0.2) 2px;
-  border-radius: 20px;
-  height: 95%;
-}
-
-.Home {
-  background-color: blue;
-  width: 100%;
 }

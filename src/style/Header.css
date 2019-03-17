@@ -18,7 +18,7 @@ a {
   text-align: center;
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 750px) {
   .Header span {
     font-size: 50px;
   }
