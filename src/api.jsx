@@ -1,5 +1,5 @@
 import axios from "axios";
-import { formatDate } from "./utils";
+import { formatDateArray, formatDateSingle } from "./utils";
 const BASE_URL = "https://lm-knews.herokuapp.com/api";
 
 export const fetchArticles = async sort_by => {
@@ -7,7 +7,7 @@ export const fetchArticles = async sort_by => {
   const {
     data: { articles }
   } = await axios.get(`${BASE_URL}/articles`, { params });
-  const formattedDateArticles = formatDate(articles);
+  const formattedDateArticles = formatDateArray(articles);
   return formattedDateArticles;
 };
 
@@ -49,26 +49,17 @@ export const fetchTopics = async () => {
   const {
     data: { topics }
   } = await axios.get(`${BASE_URL}/topics`);
-  // console.log(topics);
+
   return topics;
 };
 
-export const fetchArticlesByTopic = async topic => {
+export const fetchArticlesByTopic = async (topic, sort_by) => {
+  const params = sort_by ? { sort_by } : "";
   const {
     data: { articles }
-  } = await axios.get(`${BASE_URL}/topics/${topic}/articles`);
-  const formattedDateArticles = articles.map(
-    ({ created_at, ...restOfData }) => {
-      const date = new Date(created_at);
-      console.log(date);
-      const legibleDate = `${date.getDate()}-${date.getMonth()}-${date.getFullYear()}`;
-      console.log(legibleDate);
-      return {
-        ...restOfData,
-        created_at: legibleDate
-      };
-    }
-  );
+  } = await axios.get(`${BASE_URL}/topics/${topic}/articles`, { params });
+  const formattedDateArticles = formatDateArray(articles);
+
   return formattedDateArticles;
 };
 
@@ -86,7 +77,8 @@ export const fetchCommentsByArticle = async article_id => {
   const {
     data: { comments }
   } = await axios.get(`${BASE_URL}/articles/${article_id}/comments`);
-  return comments;
+  const formattedComments = formatDateArray(comments);
+  return formattedComments;
 };
 
 export const updateCommentVotes = async (article_id, inc_votes, comment_id) => {

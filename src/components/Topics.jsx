@@ -1,6 +1,8 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import * as api from "../api";
 import { Link } from "@reach/router";
+import "../style/Topics.css";
+import { capitalise } from "../utils";
 
 class Topics extends Component {
   state = {
@@ -11,13 +13,15 @@ class Topics extends Component {
     return (
       <div className="topicPageContents">
         {topics.map(topic => {
+          const { slug } = topic;
           return (
-            <div key={topic.slug} className="listItem">
-              <Link to={`${topic.slug}/articles`}>
-                <span>{topic.slug}</span>
+            <Fragment key={slug}>
+              <Link to={`${slug}/articles`}>
+                <div className="topicListItem">
+                  <div>{capitalise(slug)}</div>
+                </div>
               </Link>
-              <br />
-            </div>
+            </Fragment>
           );
         })}
       </div>

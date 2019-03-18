@@ -33,9 +33,3 @@ class Home extends Component {
 }
 
 export default Home;
-
-// overflow y the menu (hidden for menu, scroll for list)
-// align x axis!
-
-// MAIN DIV - menu/list children of
-// reassign all divs to relevant html tag

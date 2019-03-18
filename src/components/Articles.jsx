@@ -1,6 +1,7 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { Link } from "@reach/router";
 import AddArticleForm from "./AddArticleForm";
+import List from "./List";
 import SortBy from "./SortBy";
 import "../style/Articles.css";
 
@@ -22,42 +23,26 @@ class Articles extends Component {
       <div>LOADING</div>
     ) : (
       <div className="articlePageContents">
-        <p className="sectionHeader">Articles</p>
-        <SortBy handleChange={this.handleChange} />
-        <button id="addArticleButton" onClick={this.showForm}>
-          {!showAddForm && "Add Article"}
-          {showAddForm && "Hide Form"}
-        </button>
-        {loginAlert && (
-          <div className="loginAlert">
-            Whoops! You silly goose. Please log in to post an article.
-          </div>
-        )}
-        {showAddForm && <AddArticleForm user={user} />}
-        <br />
-        {articles.map(article => {
-          const {
-            article_id,
-            title,
-            comment_count,
-            votes,
-            author,
-            created_at
-          } = article;
-          return (
-            <div key={article_id} className="articleItem">
-              <div className="articleTitle">
-                <Link to={`/articles/${article_id}`}>
-                  <span>{title}</span>
-                </Link>
-              </div>
-              <div className="articleDate">{created_at}</div>
-              <div className="articleAuthor">{author}</div>
-              <div className="articleDeets">deets</div>
+        <div className="articleHead">
+          <p className="sectionHeader">Articles</p>
+          <SortBy handleChange={this.handleChange} />
+          <button id="addArticleButton" onClick={this.showForm}>
+            {!showAddForm && "Add Article"}
+            {showAddForm && "Hide Form"}
+          </button>
+          {loginAlert && (
+            <div className="loginAlert">
+              Whoops! You silly goose. Please log in to post an article.
               <br />
+              <button onClick={this.disarmAlert}>
+                Never mind, just browsing!
+              </button>
             </div>
-          );
-        })}
+          )}
+          {showAddForm && <AddArticleForm user={user} />}
+          <br />
+        </div>
+        <List articles={articles} />
       </div>
     );
   }
@@ -70,7 +55,7 @@ class Articles extends Component {
       });
     if (this.props.topic) {
       const { topic } = this.props;
-      api.fetchArticlesByTopic(topic).then(articles => {
+      api.fetchArticlesByTopic(topic, sort_by).then(articles => {
         this.setState({
           articles,
           isLoading: false
@@ -89,11 +74,21 @@ class Articles extends Component {
   componentDidUpdate(prevProps, prevState) {
     if (prevState.sort_by !== this.state.sort_by) {
       const { sort_by } = this.state;
-      api.fetchArticles(sort_by).then(articles => {
-        this.setState({
-          articles
+      if (this.props.topic) {
+        const { topic } = this.props;
+        api.fetchArticlesByTopic(topic, sort_by).then(articles => {
+          this.setState({
+            articles,
+            isLoading: false
+          });
         });
-      });
+      } else {
+        api.fetchArticles(sort_by).then(articles => {
+          this.setState({
+            articles
+          });
+        });
+      }
     }
 
     if (!prevProps.user && this.props.user) {
@@ -108,6 +103,12 @@ class Articles extends Component {
       });
     }
   }
+
+  disarmAlert = event => {
+    this.setState({
+      loginAlert: false
+    });
+  };
 
   showForm = event => {
     if (!this.props.user) {

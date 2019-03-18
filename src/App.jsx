@@ -6,12 +6,8 @@ import User from "./components/User";
 import Home from "./components/Home";
 import Nav from "./components/Nav";
 import Header from "./components/Header";
-import SideBar from "./components/SideBar";
 import Footer from "./components/Footer";
-import SideBarTab from "./components/SideBarTab";
-import ArticlesByTopic from "./components/ArticlesByTopic";
 import SingleArticle from "./components/SingleArticle";
-
 import "./App.css";
 
 class App extends Component {
@@ -29,7 +25,7 @@ class App extends Component {
           <Articles user={user} path="/articles" />
           <SingleArticle user={user} path="/articles/:article_id" />
           <Topics path="/topics" />
-          <ArticlesByTopic user={user} path="/topics/:topic/articles" />
+          <Articles user={user} path="/topics/:topic/articles" />
         </Router>
         {/* <SideBarTab /> */}
         <Footer />

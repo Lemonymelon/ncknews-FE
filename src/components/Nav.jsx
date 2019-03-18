@@ -33,11 +33,6 @@ class Nav extends Component {
           </section>
           {user ? (
             <div>
-              <Link to="/user">
-                {" "}
-                <img className="avatar" src={user.avatar_url} />
-              </Link>
-              <br />
               <span>logged in as: {user.username}</span>
               <br />
               <button

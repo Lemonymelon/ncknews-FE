@@ -1,0 +1,56 @@
+.singleArticleContainer {
+  display: grid;
+  grid-template-rows: 1fr 2fr 2fr;
+}
+
+.singleArticleHead {
+  grid-row: 1 / span 1;
+  text-align: center;
+  align-content: center;
+}
+
+.singleArticleBody {
+  grid-row: 2 / span 1;
+}
+
+.singleArticleComments {
+  grid-row: 3 / span 1;
+  display: flex;
+  flex-direction: column;
+  overflow: scroll;
+  overflow: -moz-scrollbars-none;
+  -ms-overflow-style: none;
+}
+
+.singleArticleComments::-webkit-scrollbar {
+  width: 0 !important;
+}
+
+.individualComment {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  grid-template-areas:
+    "articleTitle articleTitle articleTitle"
+    "articleDate articleAuthor articleDeets";
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  border: solid white 2px;
+  margin: 2% 0;
+}
+
+.commentTitle {
+  grid-area: commentTitle;
+}
+
+.commentDate {
+  grid-area: commentDate;
+}
+
+.commentAuthor {
+  grid-area: commentAuthor;
+}
+
+.commentDeets {
+  grid-area: commentDeets;
+}
