@@ -79,7 +79,11 @@ class SingleArticle extends Component {
         </div>
 
         <form className="postComment" onSubmit={this.handleSubmit}>
-          <input id="body" onChange={this.handleChange} />
+          <input
+            className="body"
+            placeholder="Enter a new comment here..."
+            onChange={this.handleChange}
+          />
           <button className="submitButton" type="submit">
             Publish comment
           </button>

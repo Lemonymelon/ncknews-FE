@@ -9,15 +9,17 @@ class Comments extends Component {
   render() {
     const { comments, newComment } = this.state;
     const { username, author } = this.props;
-
+    {
+      console.log(comments);
+    }
     return (
       <div className="singleArticleComments">
         {comments.map(comment => {
-          const { comment_id, author, created_at, body, votes } = comment;
+          const { comment_id, username, created_at, body, votes } = comment;
           return (
             <div key={comment_id} className="listItem">
-              <span>{author}</span>
-              <span>{created_at}</span>
+              <span>{username} @ </span>
+              <span>{created_at}: </span>
               <span>{body}</span>
               <Voter
                 votes={votes}
@@ -37,7 +39,6 @@ class Comments extends Component {
   componentDidMount() {
     const { article_id } = this.props;
     api.fetchCommentsByArticle(article_id).then(comments => {
-      console.log("CDM: ", comments);
       this.setState({
         comments
       });
@@ -46,8 +47,6 @@ class Comments extends Component {
 
   componentDidUpdate(prevProps, prevState) {
     const { comments } = this.state;
-    console.log("CDU PRV: ", prevState.comments);
-    console.log("CDU NEW: ", comments);
 
     const { article_id } = this.props;
 
@@ -56,7 +55,6 @@ class Comments extends Component {
       prevState.comments[0].comment_id !== comments[0].comment_id
     ) {
       api.fetchCommentsByArticle(article_id).then(newComments => {
-        console.log("NEW COMMENTS", newComments);
         this.setState({
           comments: newComments
         });

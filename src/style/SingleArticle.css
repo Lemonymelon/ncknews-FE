@@ -2,6 +2,11 @@
   display: grid;
   grid-template-rows: 2fr 5fr 1fr;
   height: 100%;
+  width: 100%;
+}
+
+.singleArticleContainer::-webkit-scrollbar {
+  width: 0 !important;
 }
 
 .singleArticleHead {
@@ -14,6 +19,13 @@
 .singleArticleBodyAndComments {
   grid-row: 2 / span 1;
   overflow: scroll;
+  overflow: -moz-scrollbars-none;
+  -ms-overflow-style: none;
+  margin: 0 auto;
+}
+
+.singleArticleBodyAndComments::-webkit-scrollbar {
+  width: 0 !important;
 }
 
 .articleDeets {
@@ -33,6 +45,10 @@
 
 .postComment {
   grid-row: 3 / span 1;
+  width: 100%;
+  align-content: center;
+  display: flex;
+  flex-direction: column;
 }
 
 .singleArticleComments::-webkit-scrollbar {
@@ -76,10 +92,14 @@
   border-radius: 20px;
   font-size: 12px;
   font-weight: 700;
-  margin-left: 3px;
+  margin: 3px auto 0 auto;
 }
 
 .voter {
   align-self: center;
   margin: 5px 0;
+}
+
+.body {
+  width: 100%;
 }
