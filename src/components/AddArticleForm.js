@@ -5,7 +5,7 @@ import { navigate } from "@reach/router";
 class AddArticleForm extends Component {
   state = {
     topics: [],
-    topic: "",
+    // topic: "",
     title: "",
     body: "",
     newArticleID: null

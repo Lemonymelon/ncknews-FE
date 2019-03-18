@@ -27,7 +27,6 @@ class App extends Component {
           <Topics path="/topics" />
           <Articles user={user} path="/topics/:topic/articles" />
         </Router>
-        {/* <SideBarTab /> */}
         <Footer />
       </div>
     );

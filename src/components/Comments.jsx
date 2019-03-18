@@ -4,14 +4,11 @@ import Voter from "./Voter";
 
 class Comments extends Component {
   state = {
-    body: "",
     comments: []
   };
   render() {
-    const { comments } = this.state;
+    const { comments, newComment } = this.state;
     const { username, author } = this.props;
-
-    console.log(username, author);
 
     return (
       <div className="singleArticleComments">
@@ -40,6 +37,7 @@ class Comments extends Component {
   componentDidMount() {
     const { article_id } = this.props;
     api.fetchCommentsByArticle(article_id).then(comments => {
+      console.log("CDM: ", comments);
       this.setState({
         comments
       });
@@ -47,8 +45,22 @@ class Comments extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (prevState.comments !== this.state.comments) {
-      // ASK
+    const { comments } = this.state;
+    console.log("CDU PRV: ", prevState.comments);
+    console.log("CDU NEW: ", comments);
+
+    const { article_id } = this.props;
+
+    if (
+      prevState.comments[0] &&
+      prevState.comments[0].comment_id !== comments[0].comment_id
+    ) {
+      api.fetchCommentsByArticle(article_id).then(newComments => {
+        console.log("NEW COMMENTS", newComments);
+        this.setState({
+          comments: newComments
+        });
+      });
     }
   }
 
@@ -58,24 +70,6 @@ class Comments extends Component {
       inc_votes,
       comment_id
     );
-    console.log(updatedComment);
-  };
-
-  HandleChange = event => {
-    const { value } = event.target;
-    this.setState({
-      body: value
-    });
-  };
-
-  HandleSubmit = event => {
-    event.preventDefault();
-    const {
-      article_id,
-      user: { username }
-    } = this.props;
-    const { body } = this.state;
-    api.addCommentToArticle(article_id, { username, body });
   };
 }
 

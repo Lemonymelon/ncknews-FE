@@ -11,7 +11,8 @@ class SingleArticle extends Component {
     article: {},
     revealDelete: false,
     revealDeleteConfirm: false,
-    isLoading: true
+    isLoading: true,
+    body: ""
   };
 
   render() {
@@ -38,7 +39,6 @@ class SingleArticle extends Component {
               <i className="fas fa-comment" /> : {comment_count}
             </div>
           </div>{" "}
-          {console.log(username, author)}
           <Voter
             votes={votes}
             article_id={this.props.article_id}
@@ -47,7 +47,7 @@ class SingleArticle extends Component {
             author={author}
           />
         </div>
-        {}
+
         <div className="deleteButtons">
           {revealDelete
             ? username === author && (
@@ -69,17 +69,17 @@ class SingleArticle extends Component {
         </div>
         <div className="singleArticleBodyAndComments">
           <p>{body}</p>
-
-          {console.log(username, author)}
-          <Comments
-            username={this.props.user.username}
-            article_id={this.props.article_id}
-            author={author}
-          />
+          {username && (
+            <Comments
+              username={this.props.user.username}
+              article_id={this.props.article_id}
+              author={author}
+            />
+          )}
         </div>
 
-        <form className="postComment" onSubmit={this.HandleSubmit}>
-          <input id="body" onChange={this.HandleChange} />
+        <form className="postComment" onSubmit={this.handleSubmit}>
+          <input id="body" onChange={this.handleChange} />
           <button className="submitButton" type="submit">
             Publish comment
           </button>
@@ -106,7 +106,6 @@ class SingleArticle extends Component {
   deleteArticle = article_id => {
     api.removeArticle(article_id);
     navigate("./");
-    // navigate to home w/ confirmation msg
   };
 
   revealConfirm = () => {
@@ -114,6 +113,24 @@ class SingleArticle extends Component {
       revealDelete: false,
       revealDeleteConfirm: true
     });
+  };
+
+  handleChange = event => {
+    const { value } = event.target;
+    this.setState({
+      body: value
+    });
+  };
+
+  handleSubmit = event => {
+    event.preventDefault();
+    const {
+      article_id,
+      user: { username }
+    } = this.props;
+    const { body } = this.state;
+
+    api.addCommentToArticle(article_id, { username, body });
   };
 }
 
