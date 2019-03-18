@@ -92,7 +92,7 @@ class AddArticleForm extends Component {
         username
       })
       .then(({ article_id }) => {
-        this.setState({ newArticleID: 1 });
+        this.setState({ newArticleID: article_id });
       })
       .catch(err => {
         console.log(err, "<<-error");

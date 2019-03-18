@@ -5,13 +5,16 @@ class Voter extends Component {
   state = {
     voteChange: 0,
     showLoginMessage: false,
-    showOwnVoteMessage: false
+    showOwnVoteMessage: false,
+    username: null,
+    author: null
   };
   render() {
-    const { votes } = this.props;
+    const { votes, username, author } = this.props;
+
     const { voteChange, showLoginMessage, showOwnVoteMessage } = this.state;
     return (
-      <section>
+      <section className="voter">
         {voteChange < 1 ? (
           <button
             className="upButton"
@@ -19,11 +22,12 @@ class Voter extends Component {
               this.Vote(1);
             }}
           >
-            {" "}
-            UP
+            <i className="fas fa-arrow-up" />
           </button>
         ) : (
-          <button disabled>UP</button>
+          <button className="upButton" disabled>
+            <i className="fas fa-arrow-up" />
+          </button>
         )}
         <span>
           {" Votes: "} {votes + voteChange} {"    "}
@@ -35,19 +39,24 @@ class Voter extends Component {
               this.Vote(-1);
             }}
           >
-            DOWN
+            <i className="fas fa-arrow-down" />
           </button>
         ) : (
-          <button disabled>DOWN</button>
+          <button className="downButton" disabled>
+            <i className="fas fa-arrow-down" />
+          </button>
         )}
 
-        {showLoginMessage && <div>You must log in to vote!</div>}
-        {showOwnVoteMessage && <div>You can't vote on your own content!</div>}
+        {showLoginMessage && (
+          <div className="loginAlert">You must log in to vote!</div>
+        )}
+        {showOwnVoteMessage && (
+          <div className="loginAlert">You can't vote on your own content!</div>
+        )}
       </section>
     );
   }
   Vote = async inc_votes => {
-    console.log(inc_votes, "voter");
     const { username, author } = this.props;
     if (!username) {
       this.setState({
@@ -73,6 +82,18 @@ class Voter extends Component {
       });
     }
   };
+
+  componentDidMount() {
+    const { showLoginMessage, showOwnVoteMessage } = this.state;
+    const { username, author } = this.props;
+
+    this.setState({
+      username,
+      author,
+      showLoginMessage: false,
+      showOwnVoteMessage: false
+    });
+  }
 
   componentDidUpdate(prevProps) {
     const { showLoginMessage, showOwnVoteMessage } = this.state;

@@ -9,14 +9,12 @@ class Comments extends Component {
   };
   render() {
     const { comments } = this.state;
+    const { username, author } = this.props;
+
+    console.log(username, author);
+
     return (
       <div className="singleArticleComments">
-        {this.props.user && (
-          <form onSubmit={this.HandleSubmit}>
-            <input id="body" onChange={this.HandleChange} />
-            <button type="submit">PUBLISH COMMENT</button>
-          </form>
-        )}
         {comments.map(comment => {
           const { comment_id, author, created_at, body, votes } = comment;
           return (
@@ -24,12 +22,13 @@ class Comments extends Component {
               <span>{author}</span>
               <span>{created_at}</span>
               <span>{body}</span>
-
               <Voter
                 votes={votes}
                 article_id={this.props.article_id}
                 comment_id={comment_id}
                 updateAPIvotes={this.amendComment}
+                username={username}
+                author={author}
               />
             </div>
           );

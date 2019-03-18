@@ -15,14 +15,14 @@ export const fetchSingleArticle = async article_id => {
   const {
     data: { article }
   } = await axios.get(`${BASE_URL}/articles/${article_id}`);
-  return article;
+  const formattedArticle = formatDateSingle(article);
+  return formattedArticle;
 };
 
 export const addArticle = async (topic, articleObj) => {
   const {
     data: { article }
   } = await axios.post(`${BASE_URL}/topics/${topic}/articles`, articleObj);
-  console.log(article);
   return article;
 };
 

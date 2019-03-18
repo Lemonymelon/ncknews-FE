@@ -36,11 +36,12 @@ class Nav extends Component {
               <span>logged in as: {user.username}</span>
               <br />
               <button
+                className="logOutButton"
                 onClick={() => {
                   setUser(null);
                 }}
               >
-                log out
+                Log out
               </button>
             </div>
           ) : (

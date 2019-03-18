@@ -24,11 +24,17 @@ class List extends Component {
                 <div className="articleTitle">
                   <span>{title}</span>
                 </div>
-                <div className="articleDate">{created_at}</div>
-                <div className="articleAuthor">{author}</div>
+                <div className="articleDate">
+                  <span>Authored on: {created_at}</span>
+                </div>
+                <div className="articleAuthor">by {author}</div>
                 <div className="articleDeets">
-                  <i className="fas fa-comment" /> : {comment_count}{" "}
-                  <i className="fas fa-smile-beam" /> : {votes}
+                  <span>
+                    <i className="fas fa-comment" />: {comment_count}
+                  </span>
+                  <span>
+                    <i className="fas fa-smile-beam" />: {votes}
+                  </span>
                 </div>
                 <br />
               </div>

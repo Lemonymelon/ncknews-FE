@@ -24,9 +24,9 @@ class Articles extends Component {
     ) : (
       <div className="articlePageContents">
         <div className="articleHead">
-          <p className="sectionHeader">Articles</p>
+          <div className="sectionHeader">Articles</div>
           <SortBy handleChange={this.handleChange} />
-          <button id="addArticleButton" onClick={this.showForm}>
+          <button className="addArticleButton" onClick={this.showForm}>
             {!showAddForm && "Add Article"}
             {showAddForm && "Hide Form"}
           </button>
@@ -34,7 +34,7 @@ class Articles extends Component {
             <div className="loginAlert">
               Whoops! You silly goose. Please log in to post an article.
               <br />
-              <button onClick={this.disarmAlert}>
+              <button class="addArticleButton" onClick={this.disarmAlert}>
                 Never mind, just browsing!
               </button>
             </div>

@@ -3,6 +3,8 @@ import * as api from "../api";
 import Comments from "./Comments";
 import Voter from "./Voter";
 import { navigate } from "@reach/router";
+import "../style/SingleArticle.css";
+import { capitalise } from "../utils";
 
 class SingleArticle extends Component {
   state = {
@@ -20,47 +22,68 @@ class SingleArticle extends Component {
       article: { title, author, comment_count, created_at, votes, topic, body }
     } = this.state;
     const username = this.props.user ? this.props.user.username : null;
-    console.log(username);
     return isLoading ? (
       <div>LOADING</div>
     ) : (
       <div className="singleArticleContainer">
         <div className="singleArticleHead">
-          <p className="sectionHeader">{title}</p>
-          <span>In topic: {topic}</span>
-          <span>{author}</span>
-          <span>{created_at}</span>
-          <span>comment count: {comment_count}</span>
-          {
-            <Voter
-              votes={votes}
-              article_id={this.props.article_id}
-              updateAPIvotes={this.amendArticle}
-              username={username}
-              author={author}
-            />
-          }
-          <div className="deleteButtons">
-            {revealDelete
-              ? username === author && (
-                  <button onClick={this.revealConfirm}>DELETE ARTICLE</button>
-                )
-              : null}
-            {revealDeleteConfirm && (
-              <button
-                onClick={() => {
-                  this.deleteArticle(this.props.article_id);
-                }}
-              >
-                As long as you're sure!
-              </button>
-            )}
-          </div>
-          <div className="singleArticleBody">
-            <p>{body}</p>
-          </div>
+          <div className="sectionHeader">{title}</div>
+          <div className="articleDeets">
+            <div className="articleTopic">In topic: {capitalise(topic)}</div>
+            <div className="articleAuthor">Authored by: {author}</div>
+            <div className="articleDate">
+              <span>Authored on: {created_at}</span>
+            </div>
+            <div className="articleCommentCount">
+              <i className="fas fa-comment" /> : {comment_count}
+            </div>
+          </div>{" "}
+          {console.log(username, author)}
+          <Voter
+            votes={votes}
+            article_id={this.props.article_id}
+            updateAPIvotes={this.amendArticle}
+            username={username}
+            author={author}
+          />
         </div>
-        <Comments user={this.props.user} article_id={this.props.article_id} />
+        {}
+        <div className="deleteButtons">
+          {revealDelete
+            ? username === author && (
+                <button className="deleteButton" onClick={this.revealConfirm}>
+                  DELETE ARTICLE
+                </button>
+              )
+            : null}
+          {revealDeleteConfirm && (
+            <button
+              className="deleteButton"
+              onClick={() => {
+                this.deleteArticle(this.props.article_id);
+              }}
+            >
+              As long as you're sure!
+            </button>
+          )}
+        </div>
+        <div className="singleArticleBodyAndComments">
+          <p>{body}</p>
+
+          {console.log(username, author)}
+          <Comments
+            username={this.props.user.username}
+            article_id={this.props.article_id}
+            author={author}
+          />
+        </div>
+
+        <form className="postComment" onSubmit={this.HandleSubmit}>
+          <input id="body" onChange={this.HandleChange} />
+          <button className="submitButton" type="submit">
+            Publish comment
+          </button>
+        </form>
       </div>
     );
   }
