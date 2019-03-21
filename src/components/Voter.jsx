@@ -15,44 +15,48 @@ class Voter extends Component {
     const { voteChange, showLoginMessage, showOwnVoteMessage } = this.state;
     return (
       <section className="voter">
-        {voteChange < 1 ? (
-          <button
-            className="upButton"
-            onClick={() => {
-              this.Vote(1);
-            }}
-          >
-            <i className="fas fa-arrow-up" />
-          </button>
-        ) : (
-          <button className="upButton" disabled>
-            <i className="fas fa-arrow-up" />
-          </button>
-        )}
-        <span>
-          {" Votes: "} {votes + voteChange} {"    "}
-        </span>
-        {voteChange > -1 ? (
-          <button
-            className="downButton"
-            onClick={() => {
-              this.Vote(-1);
-            }}
-          >
-            <i className="fas fa-arrow-down" />
-          </button>
-        ) : (
-          <button className="downButton" disabled>
-            <i className="fas fa-arrow-down" />
-          </button>
-        )}
+        <div className="voterContents">
+          {voteChange < 1 ? (
+            <button
+              className="upButton"
+              onClick={() => {
+                this.Vote(1);
+              }}
+            >
+              <i className="fas fa-arrow-up" />
+            </button>
+          ) : (
+            <button className="upButton" disabled>
+              <i className="fas fa-arrow-up" />
+            </button>
+          )}
+          <span>
+            {" Votes: "} {votes + voteChange} {"    "}
+          </span>
+          {voteChange > -1 ? (
+            <button
+              className="downButton"
+              onClick={() => {
+                this.Vote(-1);
+              }}
+            >
+              <i className="fas fa-arrow-down" />
+            </button>
+          ) : (
+            <button className="downButton" disabled>
+              <i className="fas fa-arrow-down" />
+            </button>
+          )}
 
-        {showLoginMessage && (
-          <div className="loginAlert">You must log in to vote!</div>
-        )}
-        {showOwnVoteMessage && (
-          <div className="loginAlert">You can't vote on your own content!</div>
-        )}
+          {showLoginMessage && (
+            <div className="loginAlert">You must log in to vote!</div>
+          )}
+          {showOwnVoteMessage && (
+            <div className="loginAlert">
+              You can't vote on your own content!
+            </div>
+          )}
+        </div>
       </section>
     );
   }

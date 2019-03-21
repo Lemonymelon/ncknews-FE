@@ -1,18 +1,21 @@
 import React, { Component } from "react";
 import * as api from "../api";
 import Voter from "./Voter";
+import Loading from "./Loading";
 
 class Comments extends Component {
   state = {
-    comments: []
+    comments: [],
+    isloading: true
   };
   render() {
-    const { comments, newComment } = this.state;
+    const { comments, newComment, isLoading } = this.state;
     const { username, author } = this.props;
     {
-      console.log(comments);
     }
-    return (
+    return isLoading ? (
+      <Loading />
+    ) : (
       <div className="singleArticleComments">
         {comments.map(comment => {
           const { comment_id, username, created_at, body, votes } = comment;
@@ -40,7 +43,8 @@ class Comments extends Component {
     const { article_id } = this.props;
     api.fetchCommentsByArticle(article_id).then(comments => {
       this.setState({
-        comments
+        comments,
+        isLoading: false
       });
     });
   }

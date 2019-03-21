@@ -69,14 +69,25 @@ a {
   text-align: center;
 }
 
+.button,
+.addArticleButton,
+.articleItem,
+.articlesButton,
+.topicsButton,
+.upButton,
+.downButton,
+.login select,
+.login button {
+  border: solid white 3px;
+  border-radius: 20px;
+}
+
 .articlesButton,
 .topicsButton {
   margin: 5px auto;
   background-color: rgba(255, 255, 255, 0.1);
-  border-radius: 20px;
   padding: 5px 20px;
   width: 100px;
-  border: solid white 2px;
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
@@ -93,8 +104,6 @@ a {
 
 .upButton,
 .downButton {
-  border: solid white 3px;
-  border-radius: 20px;
   font-size: 12px;
   font-weight: 700;
   display: inline;
@@ -108,6 +117,24 @@ a {
   background-color: rgba(255, 0, 0, 0.5);
 }
 
+.loadingIcon {
+  height: 100px;
+  width: 100px;
+  margin: 0 auto 0 auto;
+  -webkit-animation: spin 10s linear infinite;
+  -moz-animation: spin 4s linear infinite;
+  animation: spin 1s linear infinite;
+}
+
+.loadingHouse {
+  display: flex;
+  margin: auto;
+  flex-direction: column;
+  font-family: "Fredericka the Great", cursive;
+  font-weight: 600;
+  text-align: center;
+}
+
 @media screen and (max-width: 750px) {
   .Home {
     flex-direction: column;
@@ -115,6 +142,12 @@ a {
   .articlesButton,
   .topicsButton {
     font-size: 12px;
+  }
+}
+
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
   }
 }
 

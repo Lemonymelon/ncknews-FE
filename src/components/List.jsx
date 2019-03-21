@@ -3,7 +3,8 @@ import { Link } from "@reach/router";
 
 class List extends Component {
   state = {
-    articles: []
+    articles: [],
+    page: 1
   };
   render() {
     const { articles } = this.state;
@@ -30,10 +31,10 @@ class List extends Component {
                 <div className="articleAuthor">by {author}</div>
                 <div className="articleDeets">
                   <span>
-                    <i className="fas fa-comment" />: {comment_count}
+                    <i className="fas fa-comment" /> : {comment_count}
                   </span>
                   <span>
-                    <i className="fas fa-smile-beam" />: {votes}
+                    <i className="fas fa-smile-beam" /> : {votes}
                   </span>
                 </div>
                 <br />

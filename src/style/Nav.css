@@ -58,8 +58,6 @@
     rgba(9, 9, 121, 1) 5%,
     rgba(0, 212, 255, 1) 100%
   );
-  border: solid white 3px;
-  border-radius: 20px;
   font-size: 12px;
   font-weight: 700;
   width: 90%;
@@ -71,9 +69,7 @@
   font-weight: 700;
   text-align: center;
   color: white;
-  border-radius: 5px;
   background: rgba(92, 38, 149, 0.6);
-  border: solid white 3px;
   width: 90%;
   margin-right: 20px;
   margin-bottom: 5px;

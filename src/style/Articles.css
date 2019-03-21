@@ -12,9 +12,14 @@
   padding: 0;
 }
 
-.addArticleButton {
+.button,
+.addArticleButton,
+.articleItem {
   border: solid white 3px;
   border-radius: 20px;
+}
+
+.addArticleButton {
   font-size: 12px;
   font-weight: 700;
 }
@@ -39,8 +44,7 @@
     "articleTitle articleTitle articleTitle"
     "articleDate articleAuthor articleDeets";
   background-color: rgba(255, 255, 255, 0.2);
-  border-radius: 20px;
-  border: solid white 2px;
+
   margin: 2% 0;
 }
 
@@ -51,7 +55,6 @@
 
 .articleDate {
   grid-area: articleDate;
-  font-style: italic;
 }
 
 .articleAuthor {

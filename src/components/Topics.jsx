@@ -3,14 +3,18 @@ import * as api from "../api";
 import { Link } from "@reach/router";
 import "../style/Topics.css";
 import { capitalise } from "../utils";
+import Loading from "./Loading";
 
 class Topics extends Component {
   state = {
-    topics: []
+    topics: [],
+    isLoading: true
   };
   render() {
-    const { topics } = this.state;
-    return (
+    const { topics, isLoading } = this.state;
+    return isLoading ? (
+      <Loading />
+    ) : (
       <div className="topicPageContents">
         {topics.map(topic => {
           const { slug } = topic;
@@ -30,7 +34,7 @@ class Topics extends Component {
 
   componentDidMount() {
     api.fetchTopics().then(topics => {
-      this.setState({ topics });
+      this.setState({ topics, isLoading: false });
     });
   }
 }

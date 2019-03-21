@@ -24,6 +24,12 @@
   margin: 0 auto;
 }
 
+.articleBody {
+  margin: 0 auto;
+  display: flex;
+  text-align: center;
+}
+
 .singleArticleBodyAndComments::-webkit-scrollbar {
   width: 0 !important;
 }
@@ -92,14 +98,22 @@
   border-radius: 20px;
   font-size: 12px;
   font-weight: 700;
-  margin: 3px auto 0 auto;
+  margin: 3px auto;
 }
 
 .voter {
-  align-self: center;
-  margin: 5px 0;
+  margin: 5px auto;
+  display: flex;
+}
+
+.voterContents {
+  margin: 0 auto;
 }
 
 .body {
   width: 100%;
+}
+
+.listItem {
+  margin: 0 auto;
 }

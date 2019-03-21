@@ -1,10 +1,11 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import * as api from "../api";
 import Comments from "./Comments";
 import Voter from "./Voter";
 import { navigate } from "@reach/router";
 import "../style/SingleArticle.css";
 import { capitalise } from "../utils";
+import Loading from "./Loading";
 
 class SingleArticle extends Component {
   state = {
@@ -24,16 +25,23 @@ class SingleArticle extends Component {
     } = this.state;
     const username = this.props.user ? this.props.user.username : null;
     return isLoading ? (
-      <div>LOADING</div>
+      <Loading />
     ) : (
       <div className="singleArticleContainer">
         <div className="singleArticleHead">
           <div className="sectionHeader">{title}</div>
           <div className="articleDeets">
-            <div className="articleTopic">In topic: {capitalise(topic)}</div>
-            <div className="articleAuthor">Authored by: {author}</div>
+            <div className="articleTopic">
+              <span>In topic:</span>
+              <span> {capitalise(topic)}</span>
+            </div>
+            <div className="articleAuthor">
+              <span>Authored by: </span>
+              <span>{author}</span>
+            </div>
             <div className="articleDate">
-              <span>Authored on: {created_at}</span>
+              <span>Authored on:</span>
+              <span> {created_at}</span>
             </div>
             <div className="articleCommentCount">
               <i className="fas fa-comment" /> : {comment_count}
@@ -68,13 +76,18 @@ class SingleArticle extends Component {
           )}
         </div>
         <div className="singleArticleBodyAndComments">
-          <p>{body}</p>
-          {username && (
+          <p className="articleBody">{body}</p>
+          <br />
+          {(username && (
             <Comments
               username={this.props.user.username}
               article_id={this.props.article_id}
               author={author}
             />
+          )) || (
+            <Fragment>
+              <div>Please log in to see comments</div>
+            </Fragment>
           )}
         </div>
 

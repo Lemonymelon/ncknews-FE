@@ -4,12 +4,14 @@ import AddArticleForm from "./AddArticleForm";
 import List from "./List";
 import SortBy from "./SortBy";
 import "../style/Articles.css";
+import Loading from "./Loading";
 
 import * as api from "../api";
 
 class Articles extends Component {
   state = {
     articles: [],
+    page: 1,
     sort_by: "",
     order: "",
     showAddForm: false,
@@ -20,7 +22,7 @@ class Articles extends Component {
     const { user } = this.props;
     const { articles, showAddForm, isLoading, loginAlert } = this.state;
     return isLoading ? (
-      <div>LOADING</div>
+      <Loading />
     ) : (
       <div className="articlePageContents">
         <div className="articleHead">
