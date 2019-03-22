@@ -1,13 +1,19 @@
 import React, { Component } from "react";
 import { Link } from "@reach/router";
+import { throttle } from "lodash";
+import * as api from "../api";
 
 class List extends Component {
   state = {
     articles: [],
-    page: 1
+    p: 1,
+    hasAllArticles: false,
+    sort_by: "",
+    order: ""
   };
   render() {
-    const { articles } = this.state;
+    let { articles } = this.state;
+    console.log(this.state.p, "<-- p");
     return (
       <div className="articleList">
         {articles.map(article => {
@@ -47,20 +53,69 @@ class List extends Component {
   }
 
   componentDidMount() {
-    const { articles } = this.props;
-    this.setState({
-      articles
-    });
+    this._isMounted = true;
+    this.addScrollEventListener();
+
+    this.handleFetchArticles();
   }
 
-  componentDidUpdate(prevProps) {
-    const { articles } = this.props;
-    if (prevProps.articles !== articles) {
-      this.setState({
-        articles
-      });
+  componentDidUpdate(prevProps, prevState) {
+    const sortUpdate = prevState.sort_by !== this.state.sort_by;
+    const pageUpdate = prevState.p !== this.state.p;
+
+    if (sortUpdate) {
+      this.handleFetchArticles();
+    }
+
+    if (pageUpdate) {
+      this.handleFetchArticles();
     }
   }
+  componentWillUnmount() {
+    this._isMounted = false;
+  }
+
+  handleFetchArticles = () => {
+    const { sort_by, p } = this.state;
+
+    if (this.props.topic) {
+      const { topic } = this.props;
+      api.fetchArticlesByTopic(topic, sort_by, p).then(articles => {
+        this.setState({
+          articles
+        });
+      });
+    } else {
+      api.fetchArticles(sort_by, p).then(articles => {
+        this.setState({
+          articles: [...this.state.articles, ...articles],
+          isLoading: false
+        });
+      });
+    }
+  };
+
+  addScrollEventListener = () => {
+    console.log(2);
+
+    document
+      .querySelector(".articleList")
+      .addEventListener("scroll", this.handleScroll);
+  };
+
+  handleScroll = throttle(event => {
+    console.log(3);
+
+    const { clientHeight, scrollTop, scrollHeight } = event.target;
+    console.log(clientHeight, scrollTop, scrollHeight);
+    const { p } = this.state;
+    if (scrollTop + clientHeight >= scrollHeight - 100) {
+      console.log(4);
+      this.setState({
+        p: p + 1
+      });
+    }
+  }, 2000);
 }
 
 export default List;

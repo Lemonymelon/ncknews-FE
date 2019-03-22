@@ -2,12 +2,22 @@ import axios from "axios";
 import { formatDateArray, formatDateSingle } from "./utils";
 const BASE_URL = "https://lm-knews.herokuapp.com/api";
 
-export const fetchArticles = async sort_by => {
-  const params = sort_by ? { sort_by } : "";
+export const fetchArticles = async (sort_by, p) => {
+  const params = { sort_by, p };
   const {
     data: { articles }
   } = await axios.get(`${BASE_URL}/articles`, { params });
   const formattedDateArticles = formatDateArray(articles);
+  return formattedDateArticles;
+};
+
+export const fetchArticlesByTopic = async (topic, sort_by) => {
+  const params = sort_by ? { sort_by } : "";
+  const {
+    data: { articles }
+  } = await axios.get(`${BASE_URL}/topics/${topic}/articles`, { params });
+  const formattedDateArticles = formatDateArray(articles);
+
   return formattedDateArticles;
 };
 
@@ -51,16 +61,6 @@ export const fetchTopics = async () => {
   } = await axios.get(`${BASE_URL}/topics`);
 
   return topics;
-};
-
-export const fetchArticlesByTopic = async (topic, sort_by) => {
-  const params = sort_by ? { sort_by } : "";
-  const {
-    data: { articles }
-  } = await axios.get(`${BASE_URL}/topics/${topic}/articles`, { params });
-  const formattedDateArticles = formatDateArray(articles);
-
-  return formattedDateArticles;
 };
 
 export const addCommentToArticle = async (article_id, commentObject) => {
