@@ -53,6 +53,7 @@ export const addTopic = async (slug, description) => {
     slug,
     description
   });
+  return data;
 };
 
 export const fetchTopics = async () => {
@@ -73,10 +74,13 @@ export const addCommentToArticle = async (article_id, commentObject) => {
   return comment;
 };
 
-export const fetchCommentsByArticle = async article_id => {
+export const fetchCommentsByArticle = async (article_id, p) => {
+  const params = { p };
   const {
     data: { comments }
-  } = await axios.get(`${BASE_URL}/articles/${article_id}/comments`);
+  } = await axios.get(`${BASE_URL}/articles/${article_id}/comments`, {
+    params
+  });
   const formattedComments = formatDateArray(comments);
   return formattedComments;
 };

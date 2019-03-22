@@ -8,12 +8,11 @@ class List extends Component {
     articles: [],
     p: 1,
     hasAllArticles: false,
-    sort_by: "",
-    order: ""
+    order: "",
+    sort_by: ""
   };
   render() {
     let { articles } = this.state;
-    console.log(this.state.p, "<-- p");
     return (
       <div className="articleList">
         {articles.map(article => {
@@ -53,17 +52,19 @@ class List extends Component {
   }
 
   componentDidMount() {
+    const { sort_by } = this.props;
     this._isMounted = true;
     this.addScrollEventListener();
-
     this.handleFetchArticles();
+    this.setState({ sort_by });
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const sortUpdate = prevState.sort_by !== this.state.sort_by;
+    const sortUpdate = prevProps.sort_by !== this.props.sort_by;
     const pageUpdate = prevState.p !== this.state.p;
 
     if (sortUpdate) {
+      this.setState({ sort_by: this.props.sort_by });
       this.handleFetchArticles();
     }
 
@@ -76,17 +77,23 @@ class List extends Component {
   }
 
   handleFetchArticles = () => {
-    const { sort_by, p } = this.state;
+    const { p } = this.state;
+    const { sort_by } = this.state;
+    console.log(sort_by, "<-- HFA");
 
     if (this.props.topic) {
       const { topic } = this.props;
       api.fetchArticlesByTopic(topic, sort_by, p).then(articles => {
         this.setState({
-          articles
+          articles: [...this.state.articles, ...articles],
+          isLoading: false
         });
       });
     } else {
       api.fetchArticles(sort_by, p).then(articles => {
+        if (!articles.length) {
+          this.setState({ hasAllArticles: true });
+        }
         this.setState({
           articles: [...this.state.articles, ...articles],
           isLoading: false
@@ -96,21 +103,15 @@ class List extends Component {
   };
 
   addScrollEventListener = () => {
-    console.log(2);
-
     document
       .querySelector(".articleList")
       .addEventListener("scroll", this.handleScroll);
   };
 
   handleScroll = throttle(event => {
-    console.log(3);
-
     const { clientHeight, scrollTop, scrollHeight } = event.target;
-    console.log(clientHeight, scrollTop, scrollHeight);
     const { p } = this.state;
     if (scrollTop + clientHeight >= scrollHeight - 100) {
-      console.log(4);
       this.setState({
         p: p + 1
       });

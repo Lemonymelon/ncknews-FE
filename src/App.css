@@ -77,7 +77,13 @@ a {
 .upButton,
 .downButton,
 .login select,
-.login button {
+.login button,
+.textEntryField,
+.newComment,
+.logOutButton,
+.submitButton,
+.deleteButton,
+#topic {
   border: solid white 3px;
   border-radius: 20px;
 }
@@ -135,6 +141,24 @@ a {
   text-align: center;
 }
 
+#topic {
+  font-size: 12px;
+  font-weight: 700;
+  text-align: center;
+}
+.textEntryField {
+  background-color: rgba(255, 255, 255, 0.7);
+}
+.textEntryField:focus,
+#topic:active,
+.button:active,
+.addArticleButton:active,
+.logOutButton:active,
+.articlesButton:active,
+.deleteButton:active,
+.submitButton:active {
+  background-color: rgba(255, 255, 255, 1);
+}
 @media screen and (max-width: 750px) {
   .Home {
     flex-direction: column;

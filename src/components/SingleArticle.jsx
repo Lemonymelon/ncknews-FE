@@ -13,7 +13,8 @@ class SingleArticle extends Component {
     revealDelete: false,
     revealDeleteConfirm: false,
     isLoading: true,
-    body: ""
+    body: "",
+    newComment: ""
   };
 
   render() {
@@ -32,15 +33,15 @@ class SingleArticle extends Component {
           <div className="sectionHeader">{title}</div>
           <div className="articleDeets">
             <div className="articleTopic">
-              <span>In topic:</span>
+              <span className="label">In topic:</span>
               <span> {capitalise(topic)}</span>
             </div>
             <div className="articleAuthor">
-              <span>Authored by: </span>
+              <span className="label">Authored by: </span>
               <span>{author}</span>
             </div>
             <div className="articleDate">
-              <span>Authored on:</span>
+              <span className="label">Authored on:</span>
               <span> {created_at}</span>
             </div>
             <div className="articleCommentCount">
@@ -83,6 +84,7 @@ class SingleArticle extends Component {
               username={this.props.user.username}
               article_id={this.props.article_id}
               author={author}
+              newComment={this.state.newComment}
             />
           )) || (
             <Fragment>
@@ -93,7 +95,7 @@ class SingleArticle extends Component {
 
         <form className="postComment" onSubmit={this.handleSubmit}>
           <input
-            className="body"
+            className="body newComment"
             placeholder="Enter a new comment here..."
             onChange={this.handleChange}
           />
@@ -147,7 +149,9 @@ class SingleArticle extends Component {
     } = this.props;
     const { body } = this.state;
 
-    api.addCommentToArticle(article_id, { username, body });
+    api.addCommentToArticle(article_id, { username, body }).then(newComment => {
+      this.setState({ newComment });
+    });
   };
 }
 

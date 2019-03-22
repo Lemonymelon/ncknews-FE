@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import * as api from "../api";
 
 class Voter extends Component {
   state = {
@@ -10,7 +9,7 @@ class Voter extends Component {
     author: null
   };
   render() {
-    const { votes, username, author } = this.props;
+    const { votes } = this.props;
 
     const { voteChange, showLoginMessage, showOwnVoteMessage } = this.state;
     return (
@@ -88,7 +87,6 @@ class Voter extends Component {
   };
 
   componentDidMount() {
-    const { showLoginMessage, showOwnVoteMessage } = this.state;
     const { username, author } = this.props;
 
     this.setState({
@@ -100,7 +98,6 @@ class Voter extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { showLoginMessage, showOwnVoteMessage } = this.state;
     const { username } = this.props;
     if (!prevProps.username && username) {
       this.setState({ showLoginMessage: false, showOwnVoteMessage: false });

@@ -75,10 +75,13 @@
 }
 
 .deleteButton {
-  border: solid white 3px;
-  border-radius: 20px;
   font-size: 12px;
   font-weight: 700;
+  margin: 5px auto;
+}
+
+.deleteButtons {
+  display: flex;
 }
 
 .commentDate {
@@ -94,8 +97,6 @@
 }
 
 .submitButton {
-  border: solid white 3px;
-  border-radius: 20px;
   font-size: 12px;
   font-weight: 700;
   margin: 3px auto;
@@ -116,4 +117,9 @@
 
 .listItem {
   margin: 0 auto;
+}
+
+.label {
+  font-style: italic;
+  opacity: 0.7;
 }

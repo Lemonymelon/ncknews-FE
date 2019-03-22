@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { Router } from "@reach/router";
 import Articles from "./components/Articles";
 import Topics from "./components/Topics";
-import User from "./components/User";
 import Home from "./components/Home";
 import Nav from "./components/Nav";
 import Header from "./components/Header";

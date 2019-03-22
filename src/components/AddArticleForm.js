@@ -5,14 +5,12 @@ import { navigate } from "@reach/router";
 class AddArticleForm extends Component {
   state = {
     topics: [],
-    // topic: "",
     title: "",
     body: "",
     newArticleID: null
   };
   render() {
     const { topics } = this.state;
-    const { topic } = this.props;
 
     return (
       <div>
@@ -38,6 +36,7 @@ class AddArticleForm extends Component {
           )}
           <input
             onChange={this.handleChange}
+            className="textEntryField"
             type="text"
             id="title"
             placeholder="Title"
@@ -46,11 +45,14 @@ class AddArticleForm extends Component {
           <input
             type="text"
             id="body"
+            className="textEntryField"
             required
             onChange={this.handleChange}
             placeholder="Body"
           />
-          <button type="submit">POST</button>
+          <button className="button" type="submit">
+            POST
+          </button>
         </form>
       </div>
     );

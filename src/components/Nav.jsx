@@ -3,7 +3,6 @@ import React, { Component } from "react";
 import * as api from "../api";
 import "../style/Nav.css";
 import house from "../house.png";
-import anon from "../anon.png";
 
 class Nav extends Component {
   state = {
@@ -17,7 +16,7 @@ class Nav extends Component {
       <div className="Nav">
         <div className="transbox">
           <Link to="/">
-            <img className="house" src={house} />
+            <img className="house" src={house} alt="home icon" />
           </Link>
 
           <section className="navLinks">

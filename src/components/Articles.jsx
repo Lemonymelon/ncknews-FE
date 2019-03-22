@@ -1,5 +1,4 @@
-import React, { Component, Fragment } from "react";
-import { Link } from "@reach/router";
+import React, { Component } from "react";
 import AddArticleForm from "./AddArticleForm";
 import List from "./List";
 import SortBy from "./SortBy";
@@ -10,11 +9,12 @@ class Articles extends Component {
   state = {
     showAddForm: false,
     isLoading: true,
-    loginAlert: false
+    loginAlert: false,
+    sort_by: ""
   };
   render() {
-    const { user } = this.props;
-    const { showAddForm, isLoading, loginAlert } = this.state;
+    const { user, topic } = this.props;
+    const { showAddForm, isLoading, loginAlert, sort_by } = this.state;
     return isLoading ? (
       <Loading />
     ) : (
@@ -35,17 +35,15 @@ class Articles extends Component {
               </button>
             </div>
           )}
-          {showAddForm && <AddArticleForm user={user} />}
+          {showAddForm && <AddArticleForm user={user} topic={topic} />}
           <br />
         </div>
-        <List />
+        <List sort_by={sort_by} topic={topic} />
       </div>
     );
   }
 
   componentDidMount() {
-    console.log(1);
-
     this.setState({ isLoading: false });
     if (this.props.user)
       this.setState({
