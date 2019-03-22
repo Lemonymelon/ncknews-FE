@@ -78,27 +78,31 @@ class List extends Component {
 
   handleFetchArticles = () => {
     const { p } = this.state;
-    const { sort_by } = this.state;
-    console.log(sort_by, "<-- HFA");
+    const { sort_by, hasAllArticles } = this.state;
 
-    if (this.props.topic) {
-      const { topic } = this.props;
-      api.fetchArticlesByTopic(topic, sort_by, p).then(articles => {
-        this.setState({
-          articles: [...this.state.articles, ...articles],
-          isLoading: false
+    if (!hasAllArticles) {
+      if (this.props.topic) {
+        const { topic } = this.props;
+        api.fetchArticlesByTopic(topic, sort_by, p).then(articles => {
+          if (!articles.length) {
+            this.setState({ hasAllArticles: true });
+          }
+          this.setState({
+            articles: [...this.state.articles, ...articles],
+            isLoading: false
+          });
         });
-      });
-    } else {
-      api.fetchArticles(sort_by, p).then(articles => {
-        if (!articles.length) {
-          this.setState({ hasAllArticles: true });
-        }
-        this.setState({
-          articles: [...this.state.articles, ...articles],
-          isLoading: false
+      } else {
+        api.fetchArticles(sort_by, p).then(articles => {
+          if (!articles.length) {
+            this.setState({ hasAllArticles: true });
+          }
+          this.setState({
+            articles: [...this.state.articles, ...articles],
+            isLoading: false
+          });
         });
-      });
+      }
     }
   };
 
@@ -110,8 +114,8 @@ class List extends Component {
 
   handleScroll = throttle(event => {
     const { clientHeight, scrollTop, scrollHeight } = event.target;
-    const { p } = this.state;
-    if (scrollTop + clientHeight >= scrollHeight - 100) {
+    const { p, hasAllArticles } = this.state;
+    if (!hasAllArticles && scrollTop + clientHeight >= scrollHeight - 100) {
       this.setState({
         p: p + 1
       });

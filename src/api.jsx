@@ -11,8 +11,9 @@ export const fetchArticles = async (sort_by, p) => {
   return formattedDateArticles;
 };
 
-export const fetchArticlesByTopic = async (topic, sort_by) => {
-  const params = sort_by ? { sort_by } : "";
+export const fetchArticlesByTopic = async (topic, sort_by, p) => {
+  const params = { sort_by, p };
+
   const {
     data: { articles }
   } = await axios.get(`${BASE_URL}/topics/${topic}/articles`, { params });

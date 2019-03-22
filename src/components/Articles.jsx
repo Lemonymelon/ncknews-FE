@@ -10,7 +10,7 @@ class Articles extends Component {
     showAddForm: false,
     isLoading: true,
     loginAlert: false,
-    sort_by: ""
+    sort_by: "created_at"
   };
   render() {
     const { user, topic } = this.props;
